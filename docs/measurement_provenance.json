@@ -1,0 +1,359 @@
+{
+  "source_license": "MIT; Copyright (c) 2024 Haibo Meng",
+  "source_records": [
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "apply_savgol_filter",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "960eb46fc9ba45b22de78647251c9d797a43af116f7f8bdf01eaa3c8e5032156"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "Teichholz_volume",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "948a18169e987c8e4fab6aba1bc635e4f54f3dbee5d7461cad5c1eb6ecad51a3"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "estimate_period_fft",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "3646fb6aa385c41668facaa605fc9db4ab521a949307002be7530bd5054117f1"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "_coerce_finite_curve",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "652de2df26efe5b07a77c071ddca7d0fc25127fa819f78f50ee878805f23c8e9"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "_prepare_curve_for_extrema_detection",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "71733eb040a581bc512cf343d1bf4a8c17fe8c8cc978175b435646fa12826cd7"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "_find_curve_extrema_indices",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "e34f265e9caa7d1652e0ea2892627238b4b63de7fcb6f0ecea5c9dc480c49d15"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "_collapse_to_alternating_extrema",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "95bf531034abcc0f54ab2cc94e90bb53b3ab5be86c7d9d3c88e3121fbb6ebdcc"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "_select_plax_volume_markers",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "38be4def1b919e7bd6c1e00670a2d9388310661a3f9e21c984f6cfa15055ac79"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "sort_landmarks",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "00c93a6501b7d5011b63adbb770cb4243fcfe000bb24954d666e06ed635876af"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "livds2volume",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "eaab73d307cfd63f46f5f2b4bc0a4c9cc313b4aaa70b4ab5f2fd23c43fe81a32"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "pair_volume_extrema",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "a53f099f41f52b789eebdd6df8d1727b0085be54189d0f56fbb4cd5bea3c3862"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "butter_lowpass_filter",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "feb8d0646723bbc91acbacdd880fb52a96f08323636f3996a01c8dd81840aedb"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/landmark_proc_new.py",
+      "symbol": "PLAXLandMark",
+      "source_sha256": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+      "extracted_sha256": "65f3a6d836af71e3f92f5795335faef620ca073af723d5b3273680b5fa20b895"
+    },
+    {
+      "source": "landmark3.0/app/services/plax_curve_service.py",
+      "symbol": "_contiguous_segments",
+      "source_sha256": "5706f665bb47824d48e0236e13383768f57aec17a77c0afca50da0e2bd468d18",
+      "extracted_sha256": "7647bfccaeef44a4f700b72ee62480eeaeca7e7075f098514df9e3745495f96b"
+    },
+    {
+      "source": "landmark3.0/app/services/plax_curve_service.py",
+      "symbol": "_is_valid_plax_landmark",
+      "source_sha256": "5706f665bb47824d48e0236e13383768f57aec17a77c0afca50da0e2bd468d18",
+      "extracted_sha256": "e13243f2320a1130aa952e21e1b873d76581fc6720c739b3019c3f00c9649199"
+    },
+    {
+      "source": "landmark3.0/app/services/plax_curve_service.py",
+      "symbol": "build_segmented_plax_curve_payload",
+      "source_sha256": "5706f665bb47824d48e0236e13383768f57aec17a77c0afca50da0e2bd468d18",
+      "extracted_sha256": "d2282184953ef452e63333843471e91ba1e0ea3246b63b170013bd076bd832c8"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "points_from_row",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "f22642126113020e360fa180ac4d264ad4d9835e41bc0f4c5b0c4b935309634f"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "endpoint_distance",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "ba39d9c2e15299f5a86270e7b0183605cd5b944be0dae3f30541f60032dd6fc6"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "orient_continuously",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "18b5ccad59c2cc44b63cf23171a728d43e2d18636c9ba299c06b822b00884083"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "odd_window",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "0fb3482797d197c4b966e5929833aebeb22735eea56d90267966361d212f9bbc"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "rolling_median",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "13b59b1c9a1cc8024757f915b9b98d28e76ad8fb83796a8a074345b7e52acae7"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "line_length",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "6c29c22cb91233dfd75e93f0fb1153c9669d91b242c918fdfd0e06d8386f5a1e"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "angle_rad",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "f5e92d2354872a0dff9249f1a066aef29be147ad36a297b6ca28c3f43f706133"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "angle_diff_deg",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "29cf08c82043e35344b3cac0641cbde32dfaf38d8c5495c4430c5115b7a25fa1"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "robust_threshold",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "ced0cc4d96b8a67e28d8d97c6b949e741dc1cf721aa6f4fa28732963e376fdea"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "bidirectional_ema",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "84f909934ea18af3876507f5610afec191c6adf2599c812bd6539567a3135c98"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "jump_metrics",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "d7f50dbf2ad3693686a9aa2020ba806210e9ac9850a2edc32c397b2013c74602"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "symbol": "process_group",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "extracted_sha256": "813854133de16ae2cfbf64e65495bd55c0e0107bfd8d66910c9ded52df2d48fa"
+    },
+    {
+      "source": "plax/results/04_Same_phase_sampling_line_comparison_2026-09-10/run_experiment.py",
+      "symbol": "geometry",
+      "source_sha256": "b03cdb9874318ea4a12caec185073aa4ce29661aadfa450c037eb0491eae333a",
+      "extracted_sha256": "e3f9be408770d5ab83699f053f5a6e51877f0e768d1e4da3a4536b34afc6d7e1"
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/fuse_lvid_predictions_learned.py",
+      "release_file": "vendor/f04_vendor/fuse_lvid_predictions_learned.py",
+      "source_sha256": "4d2c73df6d5a69af1edebb6970b9b9be3a2e8ceaf440710ab165f6b12fb7d679",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/infer_lvid_f02_video.py",
+      "release_file": "vendor/f04_vendor/infer_lvid_f02_video.py",
+      "source_sha256": "7879414200969803930d362b26c09202cf1b696a2212e8565a604443a4cf8fc4",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/temporal_smooth_lvid_video.py",
+      "release_file": "vendor/f04_vendor/temporal_smooth_lvid_video.py",
+      "source_sha256": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/__init__.py",
+      "release_file": "vendor/f04_vendor/__init__.py",
+      "source_sha256": "32edd39abe6ad1dd10a879d767af41d90fb288ff040f8a7d691018617ae4b001",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/lvid/data.py",
+      "release_file": "vendor/f04_vendor/lvid/data.py",
+      "source_sha256": "655c4602627be1d6e18f2157639d9961113881b6ba1486a34d5d953439a33500",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/lvid/heatmaps.py",
+      "release_file": "vendor/f04_vendor/lvid/heatmaps.py",
+      "source_sha256": "bc4d6a736b058e856b1c37d621228d13ef1e6fbb3bd144f1094ecaed08a54bb2",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/lvid/metrics.py",
+      "release_file": "vendor/f04_vendor/lvid/metrics.py",
+      "source_sha256": "a24aab0c83d1eceb5e29463b6d622421fec306d5ca62f43bfd83bff3c806a655",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/lvid/models.py",
+      "release_file": "vendor/f04_vendor/lvid/models.py",
+      "source_sha256": "45434e66e9ef13885773150748d6d31b9ae13e97bfa3bcb1292524e62c58b4ac",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/lvid/utils.py",
+      "release_file": "vendor/f04_vendor/lvid/utils.py",
+      "source_sha256": "49a8b40c682f8119760f0310de629618db5a991e860ff1c42c063f14808c219c",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_vendor/lvid/__init__.py",
+      "release_file": "vendor/f04_vendor/lvid/__init__.py",
+      "source_sha256": "f42633db8591536364745a635bfecb7932ed26c55e92bf34bc2876a1967178aa",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/app/algorithms/f04_pipeline.py",
+      "source_sha256": "f596738c30192bf73ffee2e9bedfdcbff3a8bbee0e2c9a461586d8901935511f",
+      "release_file": "vendor/f04_pipeline.py",
+      "changes": "Removed application path resolver and result-class dependencies; bundle is required. Candidate/fusion/T01 arithmetic unchanged."
+    },
+    {
+      "source": "landmark3.0/static/models/10_plax_f04/project/configs/lvid_unified_line010_deeplabv3plus_heatmap.yaml",
+      "release_file": "vendor/bundle_template/project/configs/lvid_unified_line010_deeplabv3plus_heatmap.yaml",
+      "source_sha256": "04a45f5a1dbc6fbc9bfef2b2e77b26218f1b575dd1a3714ab022425cc2a0d5a5",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/static/models/10_plax_f04/project/configs/lvid_roi_deeplabv3plus_heatmap.yaml",
+      "release_file": "vendor/bundle_template/project/configs/lvid_roi_deeplabv3plus_heatmap.yaml",
+      "source_sha256": "33b07740292bbf8e127bfa1494453c36e37b34d28466ff21e4b2644271320386",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/static/models/10_plax_f04/project/configs/lvid_yolo11s_pose.yaml",
+      "release_file": "vendor/bundle_template/project/configs/lvid_yolo11s_pose.yaml",
+      "source_sha256": "de0e238ec63e3c51d5d046a307dc8335df69fc0ff13f501b4d3422f687ebabc8",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/static/models/10_plax_f04/project/configs/lvid_yolov8s_pose.yaml",
+      "release_file": "vendor/bundle_template/project/configs/lvid_yolov8s_pose.yaml",
+      "source_sha256": "cb04db9311e328778ba26eb5f9c24c8929b3f7fe58da2afd79a456143f2a743f",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/static/models/10_plax_f04/project/configs/lvid_swin_t_fpn_heatmap.yaml",
+      "release_file": "vendor/bundle_template/project/configs/lvid_swin_t_fpn_heatmap.yaml",
+      "source_sha256": "bd138c05991a2d77e15d07f814ed6a3ce30bb96adbfd9caa0266bb9c2b05031d",
+      "unchanged": true
+    },
+    {
+      "source": "landmark3.0/static/models/10_plax_f04/project/configs/lvid_swin_s_fpn_heatmap.yaml",
+      "release_file": "vendor/bundle_template/project/configs/lvid_swin_s_fpn_heatmap.yaml",
+      "source_sha256": "75442317c9c6497fd18c8a5596101fc5ab3c51d816c935d2c3e2efa56a057d69",
+      "unchanged": true
+    }
+  ],
+  "required_model_assets": [
+    {
+      "relative_path": "project/runs/lvid_f04_learned_fusion_e17/f04_lvid_error_selector.joblib",
+      "sha256": "108706d6de40cdc4eb2434b971df83bffb0a2db3a71d3b8f2e033fae2ff2bd8b",
+      "bytes": 16851642,
+      "included": false
+    },
+    {
+      "relative_path": "project/runs/lvid_unified_line010_deeplabv3plus_heatmap/checkpoints/best.pt",
+      "sha256": "cdc17934d7417d7a54ebee48c886a093bb41b81afff0249bc1c0f9221cba9c36",
+      "bytes": 47788660,
+      "included": false
+    },
+    {
+      "relative_path": "project/runs/lvid_roi_deeplabv3plus_heatmap/checkpoints/best.pt",
+      "sha256": "0153b72b778f3cda3a7accd9f0eed5af02e72d5b44a2ed66d4a291433f5b012e",
+      "bytes": 47788724,
+      "included": false
+    },
+    {
+      "relative_path": "project/runs/lvid_yolo11s_pose/weights/best.pt",
+      "sha256": "e093525581005cb76c02d82478896a9d78c4872967d2974556ddd492b9720b1d",
+      "bytes": 19767869,
+      "included": false
+    },
+    {
+      "relative_path": "project/runs/lvid_yolov8s_pose/weights/best.pt",
+      "sha256": "07e4946d808ea418349b264902be80d492548404de47174283046d68cd318edb",
+      "bytes": 23100317,
+      "included": false
+    },
+    {
+      "relative_path": "project/runs/lvid_swin_t_fpn_heatmap/checkpoints/best.pt",
+      "sha256": "40670d4e3ddaf1241f8875d42bdcb4102d2b21ea9f9bb31f9309501c706f37b8",
+      "bytes": 348825459,
+      "included": false
+    },
+    {
+      "relative_path": "project/runs/lvid_swin_s_fpn_heatmap/checkpoints/best.pt",
+      "sha256": "beebc3bef062a34829edb1fef5c2da527f7a589c590f4010a3329b65a478ffa0",
+      "bytes": 605031757,
+      "included": false
+    }
+  ],
+  "release_file_sha256": {
+    "src/plax_measurement/measurement.py": "93acef868204da42b6c350af4b6d9ca4dc74618bf80aef110900907341fa3664",
+    "scripts/analyze_geometry.py": "be792773c4d84d9fa30cdbe9d789bc41be17c87dbdff03e68f674a68e323346a",
+    "tests/test_measurement.py": "d73c4bb9a42e9ba1543a4f4f78ed56f11188d5ccbda4416f8586ec030c189bd0",
+    "docs/models.md": "5ee835b29c9abc11b372913eebfb7be77d2463e680eee1cd698c714ad43ab5a8",
+    "vendor/f04_pipeline.py": "51491967c704b09ff04b1198ad409bcd392c6e98e67a6cd753999df44669777d",
+    "vendor/f04_vendor/__init__.py": "32edd39abe6ad1dd10a879d767af41d90fb288ff040f8a7d691018617ae4b001",
+    "vendor/f04_vendor/fuse_lvid_predictions_learned.py": "4d2c73df6d5a69af1edebb6970b9b9be3a2e8ceaf440710ab165f6b12fb7d679",
+    "vendor/f04_vendor/infer_lvid_f02_video.py": "7879414200969803930d362b26c09202cf1b696a2212e8565a604443a4cf8fc4",
+    "vendor/f04_vendor/lvid/__init__.py": "f42633db8591536364745a635bfecb7932ed26c55e92bf34bc2876a1967178aa",
+    "vendor/f04_vendor/lvid/data.py": "655c4602627be1d6e18f2157639d9961113881b6ba1486a34d5d953439a33500",
+    "vendor/f04_vendor/lvid/heatmaps.py": "bc4d6a736b058e856b1c37d621228d13ef1e6fbb3bd144f1094ecaed08a54bb2",
+    "vendor/f04_vendor/lvid/metrics.py": "a24aab0c83d1eceb5e29463b6d622421fec306d5ca62f43bfd83bff3c806a655",
+    "vendor/f04_vendor/lvid/models.py": "45434e66e9ef13885773150748d6d31b9ae13e97bfa3bcb1292524e62c58b4ac",
+    "vendor/f04_vendor/lvid/utils.py": "49a8b40c682f8119760f0310de629618db5a991e860ff1c42c063f14808c219c",
+    "vendor/f04_vendor/temporal_smooth_lvid_video.py": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+    "vendor/run_f04.py": "68560a78cd288ebe2b3ab15063bf7a863bf4b1b6c7bfd3fb5f4ac78c34b93969",
+    "vendor/bundle_template/project/configs/lvid_roi_deeplabv3plus_heatmap.yaml": "33b07740292bbf8e127bfa1494453c36e37b34d28466ff21e4b2644271320386",
+    "vendor/bundle_template/project/configs/lvid_swin_s_fpn_heatmap.yaml": "75442317c9c6497fd18c8a5596101fc5ab3c51d816c935d2c3e2efa56a057d69",
+    "vendor/bundle_template/project/configs/lvid_swin_t_fpn_heatmap.yaml": "bd138c05991a2d77e15d07f814ed6a3ce30bb96adbfd9caa0266bb9c2b05031d",
+    "vendor/bundle_template/project/configs/lvid_unified_line010_deeplabv3plus_heatmap.yaml": "04a45f5a1dbc6fbc9bfef2b2e77b26218f1b575dd1a3714ab022425cc2a0d5a5",
+    "vendor/bundle_template/project/configs/lvid_yolo11s_pose.yaml": "de0e238ec63e3c51d5d046a307dc8335df69fc0ff13f501b4d3422f687ebabc8",
+    "vendor/bundle_template/project/configs/lvid_yolov8s_pose.yaml": "cb04db9311e328778ba26eb5f9c24c8929b3f7fe58da2afd79a456143f2a743f",
+    "vendor/bundle_template/FINAL_SCHEME.json": "1fa8799bc33879bb0561064616e0cb93012057b2d0e29d1ac90a457e89bf9a1b",
+    "vendor/LICENSE.landmark3.0": "650fec2894000704041d1a9c5b44eb24546779483a8af7d52bc27528cb8b11eb"
+  },
+  "validation": {
+    "synthetic_test_count": 7,
+    "test_command": "python -m unittest discover -s tests -p test_measurement.py -v",
+    "passed": true,
+    "tested_numpy": "2.4.6",
+    "tested_scipy": "1.17.1",
+    "optional_f04_video_inference_tested": false
+  }
+}

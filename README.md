@@ -1,0 +1,52 @@
+# PLAX measurement code
+
+Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.0**. This repository does not imply journal acceptance.
+
+Correspondence: **Dong Ni (倪东), nidong@szu.edu.cn**.
+
+Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.0**; use the versioned release when citing or reproducing this draft.
+
+The study distinguishes agreement with human measurements from association with an independent functional or physiological reference. This release contains portable statistical analyses, measurement processing, model source code and the aggregate data needed to redraw the four main figures.
+
+## Install and verify
+
+Use Python 3.10 or newer in a virtual environment. From the repository root:
+
+```bash
+python -m pip install -e ".[dev]"
+python -m pytest -q
+python scripts/build_figures.py
+```
+
+The figure command needs no private inputs and writes PDF, SVG and PNG files to `figures/`. Figure 1 is a conceptual illustration; Figures 2–4 use frozen aggregate estimates in `source_data/`. Figure generation does not rerun participant-level inference or statistical analyses.
+
+## Run the analyses
+
+Prepare locally authorized inputs using the schemas in the linked documentation. Keep those inputs and their outputs outside the repository, or in the ignored `local_data/` and `outputs/` directories.
+
+| Component | Entry point | Documentation |
+|---|---|---|
+| Three-reader CMR agreement, calibration, paired contrasts and reliability | `scripts/analyze_cmr.py` | [CMR input schema and estimands](docs/cmr.md) |
+| NT-proBNP associations and leave-one-patient-out validation | `scripts/analyze_clinical.py` | [Clinical input schema and estimands](docs/clinical.md) |
+| Endpoint measurement, phase selection and geometry | `scripts/analyze_geometry.py` | [Measurement and model scope](docs/models.md) |
+| Aggregate manuscript figures | `scripts/build_figures.py` | [Data and reproducibility](docs/reproducibility.md) |
+
+```bash
+python scripts/analyze_cmr.py --input local_data/cmr_readers.csv --output-dir outputs/cmr
+python scripts/analyze_clinical.py --help
+python scripts/analyze_geometry.py --help
+```
+
+CMR defaults retain 10,000 bootstrap repetitions. The primary clinical analysis retains 20,000 patient-cluster repetitions for associations and 2,000 repetitions with the full cross-validation fitting procedure rerun. Reduced repetitions are suitable for smoke checks only. See each component's documentation for seed handling, sensitivity definitions and the interpretation of uncertainty intervals.
+
+## Release scope
+
+The public package contains aggregate estimates, code and synthetic tests. It contains no participant-level records, raw imaging, clinical database, data access credentials or trained checkpoints. Statistical analysis requires locally supplied authorized records. F04 checkpoint inference additionally requires the compatible trusted model bundle and its optional inference dependencies; that path has not been validated end to end as part of this lightweight release. See [model documentation](docs/models.md).
+
+Source provenance files in `docs/` identify the original scripts and their SHA-256 hashes. Portable wrappers replace local database and filesystem assumptions with explicit file arguments. The original historical software environment and this release's test environment are distinct; see [reproducibility notes](docs/reproducibility.md). Synthetic tests establish the checked software properties and source parity, not a fresh independent reproduction of all study results.
+
+Underlying EchoNet-LVH, CMRxRecon, CAMEO and MIMIC datasets remain subject to their providers' access terms. Access to those datasets or to compatible checkpoints is not granted by this code repository. For source-data and model availability enquiries, contact the corresponding author above.
+
+## License
+
+See [LICENSE](LICENSE). The original MIT copyright notice is retained for code derived from the landmark3.0 project. Model weights and third-party datasets are not included under that license. See [third-party notices](THIRD_PARTY_NOTICES.md).

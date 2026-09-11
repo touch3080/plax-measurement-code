@@ -1,0 +1,27 @@
+{
+  "denominator": 96,
+  "categories": [
+    {
+      "label": "No marker",
+      "n": 64
+    },
+    {
+      "label": "Aortic region only",
+      "n": 24
+    },
+    {
+      "label": "Left atrium only",
+      "n": 3
+    },
+    {
+      "label": "Both regions",
+      "n": 5
+    }
+  ],
+  "source": "Latest JACC main cut-in counts, corroborated by its Supplementary Table distribution",
+  "any_marker": 32,
+  "any_marker_wilson_ci_percent": [
+    24.7,
+    43.2
+  ]
+}

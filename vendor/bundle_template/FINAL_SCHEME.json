@@ -1,0 +1,69 @@
+{
+  "default": "original_F04_plus_T01_for_offline_video",
+  "candidates": [
+    {
+      "experiment_id": "E07",
+      "config": "project/configs/lvid_unified_line010_deeplabv3plus_heatmap.yaml",
+      "checkpoint": "project/runs/lvid_unified_line010_deeplabv3plus_heatmap/checkpoints/best.pt"
+    },
+    {
+      "experiment_id": "E14",
+      "config": "project/configs/lvid_roi_deeplabv3plus_heatmap.yaml",
+      "checkpoint": "project/runs/lvid_roi_deeplabv3plus_heatmap/checkpoints/best.pt"
+    },
+    {
+      "experiment_id": "E10",
+      "config": "project/configs/lvid_yolo11s_pose.yaml",
+      "checkpoint": "project/runs/lvid_yolo11s_pose/weights/best.pt"
+    },
+    {
+      "experiment_id": "E11",
+      "config": "project/configs/lvid_yolov8s_pose.yaml",
+      "checkpoint": "project/runs/lvid_yolov8s_pose/weights/best.pt"
+    },
+    {
+      "experiment_id": "E16",
+      "config": "project/configs/lvid_swin_t_fpn_heatmap.yaml",
+      "checkpoint": "project/runs/lvid_swin_t_fpn_heatmap/checkpoints/best.pt"
+    },
+    {
+      "experiment_id": "E17",
+      "config": "project/configs/lvid_swin_s_fpn_heatmap.yaml",
+      "checkpoint": "project/runs/lvid_swin_s_fpn_heatmap/checkpoints/best.pt"
+    }
+  ],
+  "selector": "project/runs/lvid_f04_learned_fusion_e17/f04_lvid_error_selector.joblib",
+  "selector_model": {
+    "type": "ExtraTreesRegressor",
+    "n_estimators": 600,
+    "max_depth": 10,
+    "min_samples_leaf": 3,
+    "strategy": "softmax_blend",
+    "temperature": 1.0
+  },
+  "temporal": {
+    "median_window": 5,
+    "ema_alpha": 0.35,
+    "min_confidence": 0.45,
+    "uses_future_frames": true,
+    "operating_space": "original_video_pixels"
+  },
+  "phase_feature": "Legacy F04 retained; video supplies calc=LVID, phase indicator=0",
+  "revalidation_decision": "No established overall improvement; none of the new selectors replaces F04",
+  "reference_metrics": {
+    "static_test": {
+      "n": 681,
+      "mean": 8.830975532531738,
+      "p95": 22.484718322753906,
+      "max": 38.755958557128906
+    },
+    "video_T01": {
+      "n": 40,
+      "mean": 12.889651131629943,
+      "p95": 34.04169845581055,
+      "max": 35.35105514526367
+    }
+  },
+  "metric_space": "canonical_512x384_px",
+  "clinical_or_external_validation": false
+}

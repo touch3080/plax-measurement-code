@@ -1,0 +1,42 @@
+{
+  "source": "Frozen aggregate source-data package accompanying the Nature submission draft",
+  "release_version": "0.1.0",
+  "data_level": "aggregate_only",
+  "files": [
+    {
+      "file": "clinical_association_summary.json",
+      "bytes": 4231,
+      "sha256": "bf8c1c3cbbf52dd3e34df6258fc00d4ba12b9061ab3ffedd97e26d1df677cb95"
+    },
+    {
+      "file": "plax_geometry_summary.json",
+      "bytes": 649,
+      "sha256": "d94cd73ec8677a2d4be3abcfe8e3ab01d1bccc4e9edeff334eb83686e59f4cc1"
+    },
+    {
+      "file": "static_cutin_summary.json",
+      "bytes": 488,
+      "sha256": "dbc3d9e6788a2590532eebbac57559acb8670e321925c79cb0081de1f6b611bb"
+    },
+    {
+      "file": "three_reader_bootstrap_contrasts.csv",
+      "bytes": 822,
+      "sha256": "bec833a17caeff3c3c88e24428a3d61582ec09b27f25c783fafe3b3914007b98"
+    },
+    {
+      "file": "three_reader_cmr_agreement_results.csv",
+      "bytes": 3209,
+      "sha256": "1d076e73be45c5c63e1583699b39d0626264ff106f1f9e666d34ca3f801373ea"
+    },
+    {
+      "file": "three_reader_icc_results.csv",
+      "bytes": 2761,
+      "sha256": "c4ff9cce9dcd7c26431f9200fdc86cc0708c9e67f0383eec19e3310206cdf289"
+    },
+    {
+      "file": "three_reader_sensitivity_analysis_results.csv",
+      "bytes": 1092,
+      "sha256": "b93a7204ced437cd593d245e602382546c31bef0cf6fecbabd0ae067771deb6a"
+    }
+  ]
+}

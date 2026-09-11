@@ -1,0 +1,62 @@
+seed: 2026
+device: cuda
+
+data:
+  root: .
+  prepared_dir: prepared_lvid
+  train_labels: prepared_lvid/labels/train.csv
+  val_labels: prepared_lvid/labels/val.csv
+  test_labels: prepared_lvid/labels/test.csv
+  input_height: 384
+  input_width: 512
+  grayscale: true
+  output_mode: unified_line
+  num_workers: 0
+
+model:
+  name: deeplabv3plus_heatmap
+  in_channels: 1
+  out_channels: 3
+  base_channels: 32
+  aspp_channels: 128
+  decoder_channels: 64
+
+target:
+  sigma: 3.0
+  line_sigma: 2.0
+
+train:
+  run_dir: runs/lvid_unified_line010_deeplabv3plus_heatmap
+  epochs: 40
+  batch_size: 8
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  amp: true
+  pos_weight: 12.0
+  channel_weights: [1.0, 1.0, 0.10]
+  grad_clip_norm: 1.0
+  save_every: 10
+  val_every: 1
+  early_stopping:
+    enabled: true
+    monitor: endpoint_error_swap
+    patience: 10
+    min_delta: 0.05
+  max_train_samples: null
+  max_val_samples: null
+
+augment:
+  enabled: true
+  brightness: 0.12
+  contrast: 0.12
+  gamma: 0.10
+  noise_std: 4.0
+  blur_prob: 0.08
+  affine_prob: 0.35
+  rotate_deg: 8.0
+  translate_frac: 0.04
+  scale_frac: 0.08
+
+eval:
+  overlay_count: 64
+  confidence_threshold: 0.10

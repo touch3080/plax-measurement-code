@@ -1,0 +1,59 @@
+{
+  "license": "MIT",
+  "original_copyright": "Copyright (c) 2024 Haibo Meng",
+  "source_paths": "Repository-relative filenames only; no source-machine paths or patient data included",
+  "sources": [
+    {
+      "file": "scripts/compare_f04_ntprobnp_adjusted.py",
+      "sha256": "5a9d2ee03da2600dbfe67a0fab3a5e247834d224e4e41dbadb053d5ed5c241cc",
+      "reuse": "checked_solve, weighted_fit, adjusted_batch, group_cv, cv_batch, summarize and paired patient-bootstrap design; generalized selected method names and removed application/file dependencies"
+    },
+    {
+      "file": "scripts/compare_f04_ntprobnp_quantitative.py",
+      "sha256": "00be7ce54bb33b8c7614e2f5fe8a8ba0080cfa2384a8b953ef9d83971bd2efce",
+      "reuse": "weighted_linear and continuous outcome validation; raw/log10 Pearson, descriptive slope and common paired draws; limited contrasts to F04-versus-comparator families"
+    },
+    {
+      "file": "scripts/compare_plax_repeated_visits.py",
+      "sha256": "e2c457474a9d0a5f447b1f64e01ee9f2101aba588473c61a9ea6f00767b0424f",
+      "reuse": "cluster_weights, rank_kernel, weighted_rho_from_kernels and interval; added explicit argument/empty-draw validation"
+    },
+    {
+      "file": "scripts/compare_f04_ntprobnp.py",
+      "sha256": "2c29473eb5a2cf8b16f1a2de5f54b492f8ad541ffcc2472b925b8db8e1a04010",
+      "reuse": "Reviewed method naming and shared-cohort interpretation; no application-dependent imports retained"
+    },
+    {
+      "file": "scripts/prepare_f04_ntprobnp_adjusted.py",
+      "sha256": "5623eb81afc03b68f6ee8aa37421f55c50ce7bfcf8cff075cb9f8311831f9142",
+      "reuse": "Reviewed age/renal input semantics for documentation; cohort preparation and matching code are outside the released implementation"
+    }
+  ],
+  "frozen_main_analysis": {
+    "processing": "matched_savgol5",
+    "weighting": "visit_equal",
+    "examinations": 45,
+    "patients": 39,
+    "bootstrap_replicates": 20000,
+    "cv_bootstrap_replicates": 2000,
+    "seed": 20260911
+  },
+  "release_changes": [
+    "Local canonical CSV input and aggregate-only JSON output",
+    "No database, application, raw-data, checkpoint or source-machine path dependencies",
+    "Model-column selection with comparison-family sizes derived from selected methods",
+    "Optional separately analyzed processing variants and explicit sensitivity subsets",
+    "Strict shared-cohort validation and synthetic leakage/paired-uncertainty checks"
+  ],
+  "local_verification": {
+    "frozen_adjusted_main": "Portable implementation compared with the original frozen main result using all five methods and original full replicate counts; input read in memory only",
+    "numeric_fields_compared": 404,
+    "maximum_absolute_difference": 0.0,
+    "frozen_input_unchanged": true,
+    "patient_rows_written": 0,
+    "synthetic_tests_passed": 13,
+    "synthetic_cli": "Passed for repeated, patient_equal, exact_report_only, exclude_topcoded_age, and single_visit modes; aggregate JSON contains no synthetic patient identifiers"
+  },
+  "patient_rows_included": false,
+  "prospective_validation_claimed": false
+}

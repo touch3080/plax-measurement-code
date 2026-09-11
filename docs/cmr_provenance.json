@@ -1,0 +1,53 @@
+{
+  "analysis": "Portable CMR statistics adapted from original study scripts",
+  "source_files": [
+    {
+      "path": "results/01_CMRxRecon_CMR_3C/08_three_reader_annotation_analysis_latest/extend_manuscript_statistics.py",
+      "sha256": "d44af85bf04d645e75036bad16c960d5d20c46e10a84b1006446cd5fe558dc4b",
+      "role": "core mathematical/statistical implementation"
+    },
+    {
+      "path": "results/01_CMRxRecon_CMR_3C/09_reannotated_three_reader_statistics_2026-09-10/update_reannotated_statistics.py",
+      "sha256": "73de64938fde3550962c475b22d749cb872ee2bdc08319826260848c7672a08e",
+      "role": "reannotation update, subsets and shared-ED bootstrap handling"
+    },
+    {
+      "path": "results/04_Same_phase_sampling_line_comparison_2026-09-10/run_experiment.py",
+      "sha256": "b03cdb9874318ea4a12caec185073aa4ce29661aadfa450c037eb0491eae333a",
+      "role": "reviewed related same-phase experiment; no code copied"
+    }
+  ],
+  "source_license_headers": "No copyright or license headers found in these three reviewed source files; repository licensing is handled separately by the release maintainer.",
+  "retained_defaults": {
+    "seed": 20260820,
+    "bootstrap_reps": 10000,
+    "nominal_cm_per_pixel": 0.15
+  },
+  "adaptations": [
+    "CSV-based reader input replaces local annotation database and wide source-record loading",
+    "Configurable seed and bootstrap count preserve original seed offsets",
+    "Participant keys use the generic case_id column and reference EF uses reference_ef",
+    "Optional case-level audit flags replace private video/geometry and reannotation registries",
+    "Sensitivity calibration refits within each subset as in the September 10 update",
+    "Fewer than four cases skips a sensitivity analysis; malformed inputs are rejected",
+    "Undefined percentile CI or a constant-predictor slope fit returns NaN",
+    "Input and output filesystem operations are confined to the CLI; no database access"
+  ],
+  "development_verification": {
+    "date": "2026-09-12",
+    "inputs": "12 entirely synthetic cases, three readers, three methods; no participant data",
+    "bootstrap_reps": 100,
+    "seed": 20260820,
+    "results": {
+      "harmonized_diameters_and_reader_ef": "numerically exact",
+      "raw_consensus_and_loocv_predictions": "numerically exact",
+      "agreement_and_paired_contrasts": "exact",
+      "icc_point_estimates_and_bootstrap_intervals": "exact",
+      "exploratory_threshold_table": "exact",
+      "raw_paired_delta_mae": "exact"
+    },
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "data_included": false
+}

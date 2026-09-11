@@ -1,0 +1,2 @@
+# Preserve exact bytes so recorded SHA-256 provenance survives clone/checkout.
+* -text

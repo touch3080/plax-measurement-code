@@ -1,0 +1,66 @@
+{
+  "release_version": "0.1.0",
+  "date": "2026-09-12",
+  "platform": "Windows",
+  "python": "3.13.12",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "matplotlib": "3.10.9",
+    "threadpoolctl": "3.6.0",
+    "pytest": "9.1.1",
+    "plax-measurement-code": "0.1.0"
+  },
+  "checks": {
+    "unit_tests": {
+      "command": "python -m pytest -q",
+      "passed": 30,
+      "failed": 0,
+      "inputs": "synthetic"
+    },
+    "aggregate_integrity": {
+      "command": "python scripts/verify_source_data.py",
+      "verified_files": 7
+    },
+    "figures": {
+      "command": "python scripts/build_figures.py",
+      "figures": 4,
+      "formats": [
+        "pdf",
+        "svg",
+        "png"
+      ],
+      "png_dpi": 350,
+      "visual_check": "clinical association figure checked for readable labels and intervals"
+    },
+    "syntax": {
+      "command": "python -m compileall -q src scripts vendor",
+      "passed": true
+    },
+    "cmr_source_parity": {
+      "synthetic_cases": 12,
+      "bootstrap_reps": 100,
+      "result": "exact numerical agreement",
+      "details": "docs/cmr_provenance.json"
+    },
+    "clinical_source_parity": {
+      "numeric_fields_compared": 404,
+      "max_abs_difference": 0.0,
+      "association_reps": 20000,
+      "cv_refit_reps": 2000,
+      "participant_rows_exported": false,
+      "details": "docs/clinical_provenance.json"
+    },
+    "optional_f04": {
+      "import_and_bundle_structure_checked": true,
+      "checkpoint_video_inference_checked": false,
+      "details": "docs/measurement_provenance.json"
+    }
+  },
+  "limitations": [
+    "No complete independent training reproduction",
+    "Restricted participant inputs and trained checkpoints are not included",
+    "Only the listed environment was tested"
+  ]
+}

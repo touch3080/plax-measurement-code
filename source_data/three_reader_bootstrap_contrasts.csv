@@ -1,0 +1,9 @@
+metric,contrast,observed,ci_low,ci_high,p_two_sided,bootstrap_reps
+delta_pearson_r,dynamic_minus_static,0.3973063271029442,0.20760086199326938,0.5713139758914982,0.0,10000
+delta_pearson_r,dynamic_minus_peak_to_peak,0.23275589324484483,0.0680674092524718,0.4006477510295101,0.0052,10000
+delta_mae,dynamic_minus_static,-0.49982051460655796,-0.9401042145729096,-0.06373789365099194,0.024,10000
+delta_mae,dynamic_minus_peak_to_peak,-0.39586849863022433,-0.784713771347188,-0.006821923444991325,0.0442,10000
+delta_mae,dynamic_minus_mean_only,-0.46797390350830437,-0.9097288292657995,-0.025985355790105944,0.0374,10000
+cross_validated_r2_vs_mean_only,static,-0.015493126005870383,,,,0
+cross_validated_r2_vs_mean_only,dynamic,0.17691476846275112,,,,0
+cross_validated_r2_vs_mean_only,peak_to_peak,0.0200236856530972,,,,0
