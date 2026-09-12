@@ -15,6 +15,7 @@ import torch
 from f04_vendor import infer_lvid_f02_video as original
 from f04_vendor import temporal_smooth_lvid_video as temporal
 from dataclasses import dataclass
+from model_bundle import bundle_path, verify_model_bundle
 
 
 @dataclass
@@ -52,6 +53,8 @@ def bundle_files(bundle_path):
     relative = [scheme['selector']]
     for spec in scheme['candidates']:
         relative.extend((spec['config'], spec['checkpoint']))
+        if 'architecture' in spec:
+            relative.append(spec['architecture'])
     paths = [(path.parent / name).resolve() for name in relative]
     if any(not p.is_relative_to(path.parent) for p in paths):
         raise ValueError('F04 bundle path escapes bundle directory')
@@ -68,6 +71,15 @@ class F04Pipeline:
         if missing:
             raise FileNotFoundError('; '.join(missing))
         self.root = self.bundle_path.resolve().parent
+        if self.scheme.get('asset_format_version') == 1:
+            self.asset_manifest = verify_model_bundle(self.root, self.scheme['model_asset_manifest'])
+            expected = {bundle_path(self.root, item['path']) for item in self.asset_manifest['files']}
+            if not all(p in expected for p in paths):
+                raise ValueError('Required F04 asset is not covered by the manifest')
+        else:
+            self.asset_manifest = None
+        self._spec_by_checkpoint = {
+            str((self.root / spec['checkpoint']).resolve()): spec for spec in self.scheme['candidates']}
         self.device = torch.device(device or ('cuda:0' if torch.cuda.is_available() else 'cpu'))
         self.selector = original.load_selector(self.root / self.scheme['selector'])
         if tuple(self.selector['candidate_names']) != NAMES:
@@ -88,7 +100,11 @@ class F04Pipeline:
             # Full checkpoint restores all parameters; do not download ImageNet initialization.
             model_cfg['pretrained'] = False
             model = original.build_model(model_cfg)
-            checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=False)
+            spec = self._spec_by_checkpoint[str(Path(checkpoint_path).resolve())]
+            released = spec.get('checkpoint_format') == 'plax_heatmap_state_v1'
+            checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=released)
+            if released and checkpoint.get('format') != 'plax_heatmap_state_v1':
+                raise ValueError('Unexpected released heatmap checkpoint format')
             model.load_state_dict(checkpoint['model_state'], strict=True)
             self._heatmap_models[key] = (cfg, model.to(device).eval())
         return self._heatmap_models[key]
@@ -96,7 +112,20 @@ class F04Pipeline:
     def _load_yolo(self, checkpoint_path):
         key = str(checkpoint_path)
         if key not in self._yolo_models:
-            self._yolo_models[key] = original.YOLO(checkpoint_path)
+            spec = self._spec_by_checkpoint[str(Path(checkpoint_path).resolve())]
+            if spec.get('checkpoint_format') == 'plax_yolo_state_v1':
+                checkpoint = torch.load(checkpoint_path, map_location='cpu', weights_only=True)
+                if checkpoint.get('format') != 'plax_yolo_state_v1':
+                    raise ValueError('Unexpected released YOLO checkpoint format')
+                model = original.YOLO(str(bundle_path(self.root, spec['architecture'])), task='pose')
+                model.model.load_state_dict(checkpoint['model_state'], strict=True)
+                model.model.names = checkpoint['names']
+                model.model.kpt_shape = model.model.yaml['kpt_shape']
+                model.overrides = dict(checkpoint['inference_args'], model=str(checkpoint_path))
+                model.model.args = dict(model.overrides)
+                self._yolo_models[key] = model
+            else:
+                self._yolo_models[key] = original.YOLO(checkpoint_path)
         return self._yolo_models[key]
 
     def _device_config(self, path):

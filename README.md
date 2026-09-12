@@ -1,14 +1,16 @@
 # PLAX measurement code
 
-Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.1**. This repository does not imply journal acceptance.
+Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.2**. This repository does not imply journal acceptance.
 
 Correspondence: **Dong Ni (倪东), nidong@szu.edu.cn**.
 
-Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.1**; use the versioned release when citing or reproducing this draft. The v0.1.0 tag remains available.
+Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.2**; use the versioned release when citing or reproducing this draft. The v0.1.0 and v0.1.1 tags remain available.
 
 The study distinguishes agreement with human measurements from association with an independent functional or physiological reference. This release contains portable statistical analyses, measurement processing, model source code and the aggregate data needed to redraw the four main figures.
 
 Version 0.1.1 documents the actual clinical phase filter (Butterworth, 0.23 cycles/frame) and adds explicit cumulative comparison-family settings for the E10 analysis. The original primary analysis uses 4/5 comparisons; the E10 common cohort retains 5/6. Measurement algorithms and frozen figure inputs are unchanged. See [recorded study settings](docs/study_settings.json) and [clinical interval scope](docs/clinical.md).
+
+Version 0.1.2 adds publicly downloadable F04 and CMR model bundles, with training metadata removed, file integrity manifests and compatible inference loaders. See [model downloads](docs/model_downloads.md). The original network tensors, measurement algorithms and frozen study results are unchanged.
 
 ## Install and verify
 
@@ -43,11 +45,11 @@ CMR defaults retain 10,000 bootstrap repetitions. The primary clinical analysis 
 
 ## Release scope
 
-The public package contains aggregate estimates, code and synthetic tests. It contains no participant-level records, raw imaging, clinical database, data access credentials or trained checkpoints. Statistical analysis requires locally supplied authorized records. F04 checkpoint inference additionally requires the compatible trusted model bundle and its optional inference dependencies; that path has not been validated end to end as part of this lightweight release. See [model documentation](docs/models.md).
+The Git source tree contains aggregate estimates, code and synthetic tests. Trained F04 and CMR checkpoints are separate [v0.1.2 Release assets](https://github.com/touch3080/plax-measurement-code/releases/tag/v0.1.2). No participant-level records, raw imaging, clinical database or credentials are distributed. Statistical analysis and inference require locally authorized data. The F04 runner was checked on two real clinical videos (275 frames); the released checkpoint tensors are also checked against the originals. See [model downloads and validation](docs/model_downloads.md).
 
 Source provenance files in `docs/` identify the original scripts and their SHA-256 hashes. Portable wrappers replace local database and filesystem assumptions with explicit file arguments. The original historical software environment and this release's test environment are distinct; see [reproducibility notes](docs/reproducibility.md). Synthetic tests establish the checked software properties and source parity, not a fresh independent reproduction of all study results.
 
-Underlying EchoNet-LVH, CMRxRecon, CAMEO and MIMIC datasets remain subject to their providers' access terms. Access to those datasets or to compatible checkpoints is not granted by this code repository. For source-data and model availability enquiries, contact the corresponding author above.
+Underlying EchoNet-LVH, CMRxRecon, CAMEO and MIMIC datasets remain subject to their providers' access terms. Their source records are not redistributed with the models. Official third-party comparator/pretraining assets must be obtained from their providers. For source-data enquiries, contact the corresponding author above.
 
 ## License
 

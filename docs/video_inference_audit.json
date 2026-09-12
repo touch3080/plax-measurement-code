@@ -1,0 +1,86 @@
+{
+  "audit_date": "2026-09-13",
+  "audited_algorithm_version": "v0.1.1",
+  "description": "Fresh image inference through vendor/run_f04.py, followed by scripts/analyze_geometry.py trajectory. No cached endpoints were used as input to image inference.",
+  "selection": "Prespecified earlier E10 clinical-check clip and longest available clip in the frozen 83-video clinical cohort; two representative checks, not full-cohort re-inference.",
+  "videos": 2,
+  "frames": 275,
+  "frame_counts": [
+    80,
+    195
+  ],
+  "batch_size": 4,
+  "chunk_size": 64,
+  "trusted_model_assets_verified": 7,
+  "configuration_files_matching_published_templates": 6,
+  "endpoint_variants": [
+    "E07",
+    "E14",
+    "E10",
+    "E11",
+    "E16",
+    "E17",
+    "F04 raw",
+    "F04 T01"
+  ],
+  "maximum_endpoint_difference_native_pixels": 0.0,
+  "measurement_variants": [
+    "F04 matched_savgol5",
+    "F04 T01",
+    "E10 matched_savgol5"
+  ],
+  "video_variant_combinations": 6,
+  "cycles": 12,
+  "phase_settings": {
+    "filter": "Butterworth order 4",
+    "cutoff_cycles_per_frame": 0.23,
+    "peak_distance_effective_period_fraction": 0.55
+  },
+  "ed_es_indices_identical": true,
+  "cycle_counts_and_status_identical": true,
+  "maximum_volume_difference_ml": 0.0,
+  "maximum_lvef_difference_percentage_points": 0.0,
+  "environment": {
+    "python": "3.10.20 | packaged by Anaconda, Inc. | (main, Mar 11 2026, 17:42:35) [MSC v.1942 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cuda_runtime": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "dependencies": {
+      "torch": "2.10.0+cu128",
+      "torchvision": "0.25.0+cu128",
+      "ultralytics": "8.4.19",
+      "opencv-python": "4.13.0.92",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "scikit-learn": "1.7.2",
+      "joblib": "1.5.3",
+      "PyYAML": "6.0.3",
+      "tqdm": "4.67.3",
+      "pandas": "2.3.3",
+      "pillow": "12.1.1"
+    }
+  },
+  "commands": [
+    "python vendor/run_f04.py --bundle <trusted-bundle>/FINAL_SCHEME.json --video <authorized-video> --output-dir <new-output> --device cuda:0 --batch-size 4",
+    "python scripts/analyze_geometry.py trajectory --input <new-output>/f04_lines.csv --output <new-output>/sg5.json --spacing-cm <source-calibration> --fps <source-fps> --smoothing matched_savgol5 --filter --cutoff-frequency 0.23",
+    "python scripts/analyze_geometry.py trajectory --input <new-output>/f04_lines.csv --output <new-output>/t01.json --spacing-cm <source-calibration> --fps <source-fps> --smoothing T01 --filter --cutoff-frequency 0.23"
+  ],
+  "e10_handling": "Fresh e10_yolo11s_x1/y1/x2/y2 columns were written as an ordered trajectory and processed with matched_savgol5; no fusion or T01 was applied to E10.",
+  "audited_file_sha256": {
+    "vendor/run_f04.py": "68560a78cd288ebe2b3ab15063bf7a863bf4b1b6c7bfd3fb5f4ac78c34b93969",
+    "vendor/f04_pipeline.py": "51491967c704b09ff04b1198ad409bcd392c6e98e67a6cd753999df44669777d",
+    "src/plax_measurement/measurement.py": "9233cc9c65e09e7d69cfa91733b5ebde2d190688103a8bdac7e87ff224af90d7",
+    "scripts/analyze_geometry.py": "be792773c4d84d9fa30cdbe9d789bc41be17c87dbdff03e68f674a68e323346a"
+  },
+  "model_asset_hash_manifest": "measurement_provenance.json:required_model_assets",
+  "limitations": [
+    "The references are the frozen clinical outputs produced on this local runtime, not all historical source-workstation predictions.",
+    "CPU execution, other dependency/GPU combinations and every cohort video were not rerun in this audit.",
+    "No training reproduction, independent clinical validation or physiological timing accuracy was established.",
+    "No model weights, patient rows, actual video identifiers, video hashes, trajectories or private paths are published.",
+    "The earlier source-workstation comparison on a separate EchoNet-LVH video retained a nonzero maximum difference (1.0685 native pixels raw F04 and 0.3828 pixels T01); this local check does not erase that portability limit."
+  ],
+  "weights_retrained_or_changed": false,
+  "measurement_algorithms_changed": false,
+  "frozen_study_results_changed": false
+}

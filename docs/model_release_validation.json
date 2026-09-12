@@ -1,0 +1,130 @@
+{
+  "release_version": "0.1.2",
+  "date": "2026-09-13",
+  "asset_manifest": "docs/model_assets_v0.1.2.json",
+  "sanitization": {
+    "original_container_sha256_checked": 8,
+    "network_states_identical": 7,
+    "selector_prediction_parity": true,
+    "optimizer_logs_private_paths_case_descriptions_removed": true,
+    "participant_inputs_exported": false,
+    "tensor_state_identity_details": "docs/model_assets_v0.1.2.json: assets[].weight_provenance"
+  },
+  "f04": {
+    "selection": "Prespecified earlier E10 clinical-check clip and longest available clip in the frozen 83-video clinical cohort; two representative checks, not full-cohort re-inference.",
+    "videos": 2,
+    "frames": 275,
+    "frame_counts": [
+      80,
+      195
+    ],
+    "batch_size": 4,
+    "chunk_size": 64,
+    "endpoint_variants": [
+      "E07",
+      "E14",
+      "E10",
+      "E11",
+      "E16",
+      "E17",
+      "F04 raw",
+      "F04 T01"
+    ],
+    "measurement_variants": [
+      "F04 matched_savgol5",
+      "F04 T01",
+      "E10 matched_savgol5"
+    ],
+    "video_variant_combinations": 6,
+    "cycles": 12,
+    "phase_settings": {
+      "filter": "Butterworth order 4",
+      "cutoff_cycles_per_frame": 0.23,
+      "peak_distance_effective_period_fraction": 0.55
+    },
+    "environment": {
+      "python": "3.10.20 | packaged by Anaconda, Inc. | (main, Mar 11 2026, 17:42:35) [MSC v.1942 64 bit (AMD64)]",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "cuda_runtime": "12.8",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "dependencies": {
+        "torch": "2.10.0+cu128",
+        "torchvision": "0.25.0+cu128",
+        "ultralytics": "8.4.19",
+        "opencv-python": "4.13.0.92",
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "scikit-learn": "1.7.2",
+        "joblib": "1.5.3",
+        "PyYAML": "6.0.3",
+        "tqdm": "4.67.3",
+        "pandas": "2.3.3",
+        "pillow": "12.1.1"
+      }
+    },
+    "fresh_video_inference": true,
+    "reference": "Same frozen local clinical outputs as the preceding v0.1.1 audit.",
+    "maximum_endpoint_difference_native_pixels": 0.0,
+    "maximum_volume_difference_ml": 0.0,
+    "maximum_lvef_difference_percentage_points": 0.0,
+    "ed_es_indices_identical": true,
+    "cycle_counts_and_status_identical": true
+  },
+  "cmr_network": {
+    "model_bundle_loader_succeeded": true,
+    "all_network_tensors_identical": true,
+    "tensor_entries": 344,
+    "test_input": "Synthetic random tensor, seed 20260913, shape 1x1x256x512",
+    "maximum_logit_abs_difference": 0.0,
+    "argmax_masks_identical": true,
+    "loader_versions": {
+      "torch": "2.10.0+cu128",
+      "nnunetv2": "2.6.4",
+      "dynamic-network-architectures": "0.4.3",
+      "SimpleITK": "2.5.4"
+    },
+    "scope": "Model-folder initialization and inference tensor parity only; no raw-MAT preprocessing reproduction or new clinical evaluation.",
+    "published_checkpoint_sha256": "62d6c00bebf317ad798cef5a53cebafa7538febad61e044b1f14d9bcfc02e66e"
+  },
+  "cmr_prepared_nifti_cli": {
+    "input": "Synthetic random NIfTI, seed 20260913; 3 x 128 x 128; unit spacing",
+    "cli_succeeded": true,
+    "input_output_shape_identical": true,
+    "input_spacing_preserved": true,
+    "output_labels": [
+      0,
+      3
+    ],
+    "seconds": 57.35911340004532,
+    "scope": "Prepared-NIfTI interface smoke test only; synthetic data do not validate segmentation accuracy or physical calibration."
+  },
+  "tests": {
+    "command": "python -m pytest -q",
+    "passed": 44,
+    "failed": 0,
+    "seconds": 4.89
+  },
+  "aggregate_integrity": {
+    "command": "python scripts/verify_source_data.py",
+    "verified_files": 7
+  },
+  "syntax": {
+    "command": "python -m compileall -q src scripts vendor",
+    "passed": true
+  },
+  "limitations": [
+    "Two representative CUDA video checks, not a full-cohort rerun, CPU validation or training reproduction.",
+    "Prior cross-workstation EchoNet-LVH differences remain: up to 1.0685 px raw F04 and 0.3828 px T01.",
+    "CMR checks establish model loading/tensor parity and a synthetic prepared-NIfTI interface; they do not establish clinical accuracy or raw-MAT preprocessing.",
+    "CMR physical calibration, training/evaluation overlap and reference independence remain separate limitations.",
+    "Published hashes identify recovered source containers and the current release; historical inference-time hashes are unavailable."
+  ],
+  "checked_code_sha256": {
+    "vendor/f04_pipeline.py": "3415bb9c00247d7e6d36061594433a1c9038047b5a6be3d4f9d40d353dc5b1cb",
+    "vendor/model_bundle.py": "e8ccd2fcffb34cb3b4b9f909d08651cbdeaacf4e33e0bafc863d7c77b43de55c",
+    "vendor/run_f04.py": "68560a78cd288ebe2b3ab15063bf7a863bf4b1b6c7bfd3fb5f4ac78c34b93969",
+    "vendor/run_cmr_segmentation.py": "8023fd75f1b217823d7a8ddcf502a19e54e03cc95dacef3680f650be8b755653",
+    "scripts/analyze_geometry.py": "be792773c4d84d9fa30cdbe9d789bc41be17c87dbdff03e68f674a68e323346a",
+    "src/plax_measurement/measurement.py": "9233cc9c65e09e7d69cfa91733b5ebde2d190688103a8bdac7e87ff224af90d7"
+  }
+}

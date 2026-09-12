@@ -1,0 +1,326 @@
+{
+  "format_version": 1,
+  "release": "v0.1.2",
+  "date": "2026-09-13",
+  "release_url": "https://github.com/touch3080/plax-measurement-code/releases/tag/v0.1.2",
+  "author_distribution_authorized": true,
+  "participant_data_included": false,
+  "instructions": "docs/model_downloads.md",
+  "validation": "docs/model_release_validation.json",
+  "identity_scope": "Current trusted source containers and sanitized publication containers; no historical inference-time hash asserted.",
+  "assets": [
+    {
+      "name": "f04-models-v0.1.2.zip",
+      "url": "https://github.com/touch3080/plax-measurement-code/releases/download/v0.1.2/f04-models-v0.1.2.zip",
+      "bytes": 369655487,
+      "sha256": "c191343cf01ed73d50452f72f12c15e22f4f3f956a8a6e1e51dd13eeca03ce6b",
+      "extracted_directory": "f04-v0.1.2",
+      "bundle_manifest_sha256": "1b245f2418aef60bfcf58f090d26f5e8100eb540c63cf891f3b4877b4f27495c",
+      "model_family": "F04 six candidates and selector",
+      "files": [
+        {
+          "path": "architectures/yolo11s-pose.yaml",
+          "bytes": 1369,
+          "sha256": "400f782f73a5064c18dd2e61afa29dfd1f76989da079174dd26f239f681f31b9"
+        },
+        {
+          "path": "architectures/yolov8s-pose.yaml",
+          "bytes": 1260,
+          "sha256": "87fe3b8db97ff1cdff85fefb61118b6dd53ecb6e97ad88bf22ff8547669f65e9"
+        },
+        {
+          "path": "configs/e07.yaml",
+          "bytes": 218,
+          "sha256": "ea66ca87d8247aae67f2eece6d34f0c2893d66287ae08c826524fc29e3701073"
+        },
+        {
+          "path": "configs/e10.yaml",
+          "bytes": 89,
+          "sha256": "6cf4ee3d5af96bbc7df26b387f667fbbdef696d035bd4344538719137e94b4ce"
+        },
+        {
+          "path": "configs/e11.yaml",
+          "bytes": 89,
+          "sha256": "6cf4ee3d5af96bbc7df26b387f667fbbdef696d035bd4344538719137e94b4ce"
+        },
+        {
+          "path": "configs/e14.yaml",
+          "bytes": 218,
+          "sha256": "b59ae9daebb63f2aac12b787f207d7ac44730f85ab80ba6334c269aede0417be"
+        },
+        {
+          "path": "configs/e16.yaml",
+          "bytes": 264,
+          "sha256": "80f52904402a3232ce56cf565317fc3bdc3d032113dd65241e9e6867e486df84"
+        },
+        {
+          "path": "configs/e17.yaml",
+          "bytes": 264,
+          "sha256": "3224c0f4fd1567f758e3821a4b154ca9ea3abe4937f0a7102a8858e3bedbbd50"
+        },
+        {
+          "path": "FINAL_SCHEME.json",
+          "bytes": 1768,
+          "sha256": "1ab6963edbcb0602e3f41fd88d71c073415f5977c30f86c9204f0d33c96ea4e2"
+        },
+        {
+          "path": "LICENSE.AGPL-3.0",
+          "bytes": 34523,
+          "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+        },
+        {
+          "path": "LICENSE.source-MIT",
+          "bytes": 1088,
+          "sha256": "650fec2894000704041d1a9c5b44eb24546779483a8af7d52bc27528cb8b11eb"
+        },
+        {
+          "path": "README.md",
+          "bytes": 1636,
+          "sha256": "8162ef953d00d22d9ce161e47e74c7fc98eb0005107911bee0a8d8dc3da577e3"
+        },
+        {
+          "path": "weights/e07.pt",
+          "bytes": 15950339,
+          "sha256": "8849462e2f310bd09c3e304f9009b742b6700b2b5d3bf873abe15d71d7f4d19c"
+        },
+        {
+          "path": "weights/e10.pt",
+          "bytes": 19623609,
+          "sha256": "62111447fab1d095deee028d72b5c4c6e12ad5bd5f738c79abe31572c432cdfa"
+        },
+        {
+          "path": "weights/e11.pt",
+          "bytes": 22983385,
+          "sha256": "2b5aea583b48abadf96a5e1357e6cb108944a8aa78118b3839a4efd6b1d0acaf"
+        },
+        {
+          "path": "weights/e14.pt",
+          "bytes": 15950339,
+          "sha256": "a207b8aa5da45d35db60eab63fa83c817f036b19874c1ec0cba49579bc1db798"
+        },
+        {
+          "path": "weights/e16.pt",
+          "bytes": 116418261,
+          "sha256": "33cd7454ab6b0198a76abad74391a0c1b929773a91cfa0c58f40734fa9f3f1f4"
+        },
+        {
+          "path": "weights/e17.pt",
+          "bytes": 201961061,
+          "sha256": "b130034cfc27a9a1a108c2b777a63319d89a2528637d6a0384ccc327b0e53c00"
+        },
+        {
+          "path": "weights/f04_selector.joblib",
+          "bytes": 6260979,
+          "sha256": "7e99619e10de50afd9f5103576aa1251670364f46fe0956a378ec8049044fe45"
+        }
+      ],
+      "weight_provenance": [
+        {
+          "role": "E07",
+          "source_sha256": "cdc17934d7417d7a54ebee48c886a093bb41b81afff0249bc1c0f9221cba9c36",
+          "published_file": "weights/e07.pt",
+          "sha256": "8849462e2f310bd09c3e304f9009b742b6700b2b5d3bf873abe15d71d7f4d19c",
+          "bytes": 15950339,
+          "tensor_state_sha256": "9bcd7acbab9b78ae2a8a9f39802c40eb8cb40c702b04b6f22f58cc6c64154c38",
+          "tensor_count": 166,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "epoch",
+            "optimizer_state",
+            "scheduler_state",
+            "best_epe",
+            "early_bad_epochs",
+            "config",
+            "metrics"
+          ],
+          "weights_only_load_succeeded": true
+        },
+        {
+          "role": "E14",
+          "source_sha256": "0153b72b778f3cda3a7accd9f0eed5af02e72d5b44a2ed66d4a291433f5b012e",
+          "published_file": "weights/e14.pt",
+          "sha256": "a207b8aa5da45d35db60eab63fa83c817f036b19874c1ec0cba49579bc1db798",
+          "bytes": 15950339,
+          "tensor_state_sha256": "b3d34e87727dbc159659486de9cb180813f713613736d212f6fa39fc3e736bf2",
+          "tensor_count": 166,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "epoch",
+            "optimizer_state",
+            "scheduler_state",
+            "best_epe",
+            "early_bad_epochs",
+            "config",
+            "metrics"
+          ],
+          "weights_only_load_succeeded": true
+        },
+        {
+          "role": "E10",
+          "source_sha256": "e093525581005cb76c02d82478896a9d78c4872967d2974556ddd492b9720b1d",
+          "published_file": "weights/e10.pt",
+          "sha256": "62111447fab1d095deee028d72b5c4c6e12ad5bd5f738c79abe31572c432cdfa",
+          "bytes": 19623609,
+          "tensor_state_sha256": "76586546370c03e16fa46a52a313e5a4176af05342182d113169641122f812c3",
+          "tensor_count": 541,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "serialized_model_object",
+            "ema_object",
+            "optimizer",
+            "scaler",
+            "train_args",
+            "train_metrics",
+            "train_results",
+            "git",
+            "date",
+            "epoch",
+            "best_fitness",
+            "updates",
+            "embedded_training_paths"
+          ],
+          "weights_only_load_succeeded": true
+        },
+        {
+          "role": "E11",
+          "source_sha256": "07e4946d808ea418349b264902be80d492548404de47174283046d68cd318edb",
+          "published_file": "weights/e11.pt",
+          "sha256": "2b5aea583b48abadf96a5e1357e6cb108944a8aa78118b3839a4efd6b1d0acaf",
+          "bytes": 22983385,
+          "tensor_state_sha256": "c929a321d633d91ab877e9e98817738d6561e78a2478a91ca0d73f2392c9d8a3",
+          "tensor_count": 397,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "serialized_model_object",
+            "ema_object",
+            "optimizer",
+            "scaler",
+            "train_args",
+            "train_metrics",
+            "train_results",
+            "git",
+            "date",
+            "epoch",
+            "best_fitness",
+            "updates",
+            "embedded_training_paths"
+          ],
+          "weights_only_load_succeeded": true
+        },
+        {
+          "role": "E16",
+          "source_sha256": "40670d4e3ddaf1241f8875d42bdcb4102d2b21ea9f9bb31f9309501c706f37b8",
+          "published_file": "weights/e16.pt",
+          "sha256": "33cd7454ab6b0198a76abad74391a0c1b929773a91cfa0c58f40734fa9f3f1f4",
+          "bytes": 116418261,
+          "tensor_state_sha256": "8b65dcae1c13350fc4d4308369c38fd1bbf86f8ae930d1fbf453d78323de8d1f",
+          "tensor_count": 227,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "epoch",
+            "optimizer_state",
+            "scheduler_state",
+            "best_epe",
+            "early_bad_epochs",
+            "config",
+            "metrics"
+          ],
+          "weights_only_load_succeeded": true
+        },
+        {
+          "role": "E17",
+          "source_sha256": "beebc3bef062a34829edb1fef5c2da527f7a589c590f4010a3329b65a478ffa0",
+          "published_file": "weights/e17.pt",
+          "sha256": "b130034cfc27a9a1a108c2b777a63319d89a2528637d6a0384ccc327b0e53c00",
+          "bytes": 201961061,
+          "tensor_state_sha256": "a1d0acdc0f4ffe59ad7c5909ae50ccb740158a6aa81a0d45c22fad7bf5a6efde",
+          "tensor_count": 395,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "epoch",
+            "optimizer_state",
+            "scheduler_state",
+            "best_epe",
+            "early_bad_epochs",
+            "config",
+            "metrics"
+          ],
+          "weights_only_load_succeeded": true
+        },
+        {
+          "role": "F04 selector",
+          "source_sha256": "108706d6de40cdc4eb2434b971df83bffb0a2db3a71d3b8f2e033fae2ff2bd8b",
+          "published_file": "weights/f04_selector.joblib",
+          "sha256": "7e99619e10de50afd9f5103576aa1251670364f46fe0956a378ec8049044fe45",
+          "bytes": 6260979,
+          "removed_fields": [
+            "best_record"
+          ],
+          "synthetic_predictions_identical": true,
+          "serialization_check_threads": 1,
+          "runtime_threads": 4
+        }
+      ]
+    },
+    {
+      "name": "cmr-model-v0.1.2.zip",
+      "url": "https://github.com/touch3080/plax-measurement-code/releases/download/v0.1.2/cmr-model-v0.1.2.zip",
+      "bytes": 124184816,
+      "sha256": "39a42d7ce53898aeb741e3ab352085ca10fb33efd3b56a0162f4a35b5ef7f7a0",
+      "extracted_directory": "cmr-v0.1.2",
+      "bundle_manifest_sha256": "95ba1a069906d262815f7d3b03004d11181d3e6fc1169d9999338a8c7d3ac41f",
+      "model_family": "CMR nnUNet fold 0",
+      "files": [
+        {
+          "path": "dataset.json",
+          "bytes": 225,
+          "sha256": "861af9d62e052f10b79d86f2b545bda7d2dd320bb09bd2a3979a559f5a35846b"
+        },
+        {
+          "path": "fold_0/checkpoint_best.pth",
+          "bytes": 133954095,
+          "sha256": "62d6c00bebf317ad798cef5a53cebafa7538febad61e044b1f14d9bcfc02e66e"
+        },
+        {
+          "path": "LICENSE.nnUNet-Apache-2.0",
+          "bytes": 11427,
+          "sha256": "7da9f2ddeda836a891f537104530230a7b2318f61ea4c57b05e3dd46a9ae27fd"
+        },
+        {
+          "path": "plans.json",
+          "bytes": 4078,
+          "sha256": "de22cdfcb03bb3b32e418313eeddfd17e4b4a53b196640cf8dd880224580825a"
+        },
+        {
+          "path": "README.md",
+          "bytes": 2263,
+          "sha256": "09c04e8033d11a17b233231b272ea54ca8f7814ce23d69e5fd7a78a286cb9584"
+        }
+      ],
+      "weight_provenance": [
+        {
+          "role": "CMR nnUNet fold 0",
+          "source_sha256": "856061feb929d822a0ecfca1dfe567d215707bf68135fa47b9309840b5ecc44d",
+          "published_file": "fold_0/checkpoint_best.pth",
+          "sha256": "62d6c00bebf317ad798cef5a53cebafa7538febad61e044b1f14d9bcfc02e66e",
+          "bytes": 133954095,
+          "tensor_state_sha256": "2e331c763942239183aa0a1f7941909e5f86eff651c965caa0df764cee5ebba1",
+          "tensor_count": 344,
+          "all_tensors_identical": true,
+          "removed_fields": [
+            "optimizer_state",
+            "grad_scaler_state",
+            "logging",
+            "_best_ema",
+            "current_epoch",
+            "init_args.plans",
+            "init_args.dataset_json",
+            "init_args.fold",
+            "init_args.device"
+          ],
+          "weights_only_load_succeeded": true
+        }
+      ]
+    }
+  ]
+}

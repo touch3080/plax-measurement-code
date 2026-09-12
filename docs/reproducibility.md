@@ -73,9 +73,28 @@ authorized inputs. See [measurement provenance](measurement_provenance.json) and
 [clinical provenance](clinical_provenance.json) for the current records and
 explicitly retained v0.1.0 validation history.
 
+## Subsequent real-video check of the v0.1.1 algorithms
+
+On 13 September 2026 the public F04 video runner was executed on two prespecified,
+authorized clinical videos, totaling 275 frames. Seven original model/selector
+assets matched the published SHA-256 values before loading, and six configurations
+matched the published templates. All six candidate trajectories, fused raw and
+whole-video T01 trajectories matched the frozen local clinical outputs exactly.
+The public measurement CLI then reproduced ED/ES indices, cycle counts, volumes
+and EF for F04-SG5, F04-T01 and the fresh single E10 candidate: six video/branch
+comparisons and 12 cycles, with zero numerical differences.
+
+The [aggregate record](video_inference_audit.json) includes the actual algorithm
+hashes and environment, and [direct dependency constraints](inference-constraints.txt)
+record the tested Windows/CUDA versions. Restricted videos, trajectories, input
+hashes and case results remain local. This check covers the representative clips
+on that runtime, not the entire cohort, CPU execution, training or clinical
+validity. The earlier source-workstation portability differences on a separate
+EchoNet-LVH clip remain documented in the record.
+
 ## Data and model access
 
-Dataset access must be obtained through the respective provider. Restricted source records and patient-level derivatives are not redistributed. The corresponding author can answer availability questions for compatible model checkpoints; no checkpoint download or availability commitment is implied by the source release. Inference adapters supplied without the model bundle are source code, not a complete pretrained distribution.
+Dataset access must be obtained through the respective provider. Restricted source records and patient-level derivatives are not redistributed. The authors authorized public F04 and CMR model distribution on 13 September 2026. [Versioned model bundles](model_downloads.md) contain inference-required tensors/configurations with model manifests; optimizer state, logs, embedded source paths and case descriptions were removed. These assets permit model loading with separately authorized inputs, but do not establish complete raw-data/training reproduction, physical CMR calibration or independent validation. Third-party official comparator/pretraining weights are linked to their providers.
 
 All distributed unit tests use artificial inputs. The separately reported local
 parity checks used authorized records and publish only aggregate verification

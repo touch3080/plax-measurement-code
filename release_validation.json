@@ -1,5 +1,4 @@
 {
-  "date": "2026-09-12",
   "platform": "Windows",
   "python": "3.13.12",
   "packages": {
@@ -9,50 +8,33 @@
     "matplotlib": "3.10.9",
     "threadpoolctl": "3.6.0",
     "pytest": "9.1.1",
-    "plax-measurement-code": "0.1.1"
+    "plax-measurement-code": "0.1.2"
   },
-  "limitations": [
-    "No complete independent training reproduction",
-    "Restricted participant inputs and trained checkpoints are not included",
-    "Only the listed environment was tested",
-    "The clinical local parity audit requires restricted inputs absent from this repository; only aggregate audit counts and errors are published.",
-    "The E10 parity claim covers the 66 specified fields, not auxiliary family-corrected absolute CV error intervals in the historical archive.",
-    "The v0.1.0 figure generation, CMR source-function parity and optional F04 import/bundle checks are preserved as historical checks; they were not newly rerun for v0.1.1."
-  ],
-  "release_version": "0.1.1",
-  "package_version_scope": "The source tree at version 0.1.1 was checked with the listed environment.",
+  "release_version": "0.1.2",
+  "date": "2026-09-13",
+  "package_version_scope": "Source v0.1.2 core tests use this scientific environment; model inference uses the separate environment recorded in docs/model_release_validation.json.",
   "checks": {
     "unit_tests": {
       "command": "python -m pytest -q",
-      "passed": 41,
+      "passed": 44,
       "failed": 0,
-      "inputs": "synthetic",
-      "release_version": "0.1.1",
-      "execution_seconds": 2.39
+      "seconds": 4.89
     },
     "aggregate_integrity": {
       "command": "python scripts/verify_source_data.py",
-      "verified_files": 7,
-      "release_version": "0.1.1"
+      "verified_files": 7
     },
     "syntax": {
       "command": "python -m compileall -q src scripts vendor",
-      "passed": true,
-      "release_version": "0.1.1"
+      "passed": true
     },
-    "clinical_parameter_audit": {
-      "details": "docs/clinical_parameter_audit.json",
-      "phase_video_replays": 496,
-      "phase_cycles": 1241,
-      "phase_maximum_video_numeric_difference": 0.0,
-      "primary_numeric_fields_compared": 404,
-      "primary_maximum_absolute_difference": 0.0,
-      "e10_numeric_fields_compared": 66,
-      "e10_maximum_absolute_difference": 2.498001805406602e-16,
-      "patient_rows_exported": false,
-      "new_image_inference_performed": false,
-      "verified_api_sha256": "76adfd664569984cf312bf510d2496fd9029459ce572bf39b48d8a69d27908a2",
-      "post_parity_compatibility_patch": "Only the implicit single-F04 denominator was restored; audited four/five-method settings unchanged, with the full synthetic test suite passed after this patch."
+    "published_model_assets": {
+      "details": "docs/model_release_validation.json",
+      "f04_videos": 2,
+      "f04_frames": 275,
+      "f04_endpoint_and_ef_maximum_difference": 0.0,
+      "cmr_network_tensor_identity": true,
+      "cmr_synthetic_nifti_cli": true
     },
     "figures": {
       "regenerated_for_this_release": false,
@@ -60,6 +42,14 @@
       "prior_generation_and_visual_check": "historical_validations[0].checks.figures (v0.1.0)"
     }
   },
+  "limitations": [
+    "Two representative CUDA video checks, not a full-cohort rerun, CPU validation or training reproduction.",
+    "Prior cross-workstation EchoNet-LVH differences remain: up to 1.0685 px raw F04 and 0.3828 px T01.",
+    "CMR checks establish model loading/tensor parity and a synthetic prepared-NIfTI interface; they do not establish clinical accuracy or raw-MAT preprocessing.",
+    "CMR physical calibration, training/evaluation overlap and reference independence remain separate limitations.",
+    "Published hashes identify recovered source containers and the current release; historical inference-time hashes are unavailable.",
+    "Participant inputs and independently distributed third-party pretrained models are not included."
+  ],
   "historical_validations": [
     {
       "release_version": "0.1.0",
@@ -125,6 +115,88 @@
         "No complete independent training reproduction",
         "Restricted participant inputs and trained checkpoints are not included",
         "Only the listed environment was tested"
+      ]
+    },
+    {
+      "date": "2026-09-12",
+      "platform": "Windows",
+      "python": "3.13.12",
+      "packages": {
+        "numpy": "2.4.6",
+        "pandas": "3.0.3",
+        "scipy": "1.17.1",
+        "matplotlib": "3.10.9",
+        "threadpoolctl": "3.6.0",
+        "pytest": "9.1.1",
+        "plax-measurement-code": "0.1.1"
+      },
+      "limitations": [
+        "No complete independent training reproduction",
+        "Restricted participant inputs and trained checkpoints are not included",
+        "Only the listed environment was tested",
+        "The clinical local parity audit requires restricted inputs absent from this repository; only aggregate audit counts and errors are published.",
+        "The E10 parity claim covers the 66 specified fields, not auxiliary family-corrected absolute CV error intervals in the historical archive.",
+        "The v0.1.0 figure generation, CMR source-function parity and optional F04 import/bundle checks are preserved as historical checks; they were not newly rerun for v0.1.1."
+      ],
+      "release_version": "0.1.1",
+      "package_version_scope": "The source tree at version 0.1.1 was checked with the listed environment.",
+      "checks": {
+        "unit_tests": {
+          "command": "python -m pytest -q",
+          "passed": 41,
+          "failed": 0,
+          "inputs": "synthetic",
+          "release_version": "0.1.1",
+          "execution_seconds": 2.39
+        },
+        "aggregate_integrity": {
+          "command": "python scripts/verify_source_data.py",
+          "verified_files": 7,
+          "release_version": "0.1.1"
+        },
+        "syntax": {
+          "command": "python -m compileall -q src scripts vendor",
+          "passed": true,
+          "release_version": "0.1.1"
+        },
+        "clinical_parameter_audit": {
+          "details": "docs/clinical_parameter_audit.json",
+          "phase_video_replays": 496,
+          "phase_cycles": 1241,
+          "phase_maximum_video_numeric_difference": 0.0,
+          "primary_numeric_fields_compared": 404,
+          "primary_maximum_absolute_difference": 0.0,
+          "e10_numeric_fields_compared": 66,
+          "e10_maximum_absolute_difference": 2.498001805406602e-16,
+          "patient_rows_exported": false,
+          "new_image_inference_performed": false,
+          "verified_api_sha256": "76adfd664569984cf312bf510d2496fd9029459ce572bf39b48d8a69d27908a2",
+          "post_parity_compatibility_patch": "Only the implicit single-F04 denominator was restored; audited four/five-method settings unchanged, with the full synthetic test suite passed after this patch."
+        },
+        "figures": {
+          "regenerated_for_this_release": false,
+          "included_aggregate_files_unchanged": true,
+          "prior_generation_and_visual_check": "historical_validations[0].checks.figures (v0.1.0)"
+        }
+      },
+      "subsequent_checks": [
+        {
+          "date": "2026-09-13",
+          "audited_algorithm_version": "0.1.1",
+          "video_inference_record": "docs/video_inference_audit.json",
+          "measurement_and_inference_algorithms_changed": false,
+          "unit_tests": {
+            "passed": 41,
+            "failed": 0,
+            "seconds": 3.76,
+            "command": "python -m pytest -q"
+          },
+          "aggregate_integrity": {
+            "verified_files": 7,
+            "command": "python scripts/verify_source_data.py"
+          },
+          "publication_scope": "Only aggregate verification and tested dependency versions; restricted records remain local."
+        }
       ]
     }
   ]

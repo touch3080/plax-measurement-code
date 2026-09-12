@@ -3,10 +3,14 @@
 The lightweight package operates on **user-supplied endpoint coordinates**. It
 does not turn an image into endpoints by itself. `vendor/` additionally contains
 the original F04 model architecture, six-candidate inference, learned fusion and
-T01 source, with a portable bundle adapter. No model weights, fusion checkpoint,
-patient data, annotation database or DICOM files are included. The optional
-checkpoint-based video runner has not been validated in this release against a
-real video or downloaded checkpoint. Synthetic tests validate endpoint processing.
+T01 source, with a portable bundle adapter. Trained F04 and CMR assets are available
+as separate [versioned downloads](model_downloads.md); patient data, annotation
+databases and DICOM files are not included. The checkpoint-based
+video runner was checked on two authorized real clinical videos (275 frames) with
+the original, hash-verified model bundle on 13 September 2026. All six candidate
+trajectories, fused raw/T01 endpoints and the checked SG5/T01 phase/EF outputs
+matched the frozen local clinical outputs exactly. This is a representative
+runtime check; see [scope and environment](video_inference_audit.json).
 
 ## Measurement inputs
 
@@ -112,29 +116,44 @@ with a required bundle path and a local result dataclass. Candidate inference,
 fusion, chunk size 64, T01-after-concatenation and numerical parameters are kept.
 `vendor/run_f04.py` is a new standalone runner without a database dependency.
 
-The bundle template includes six original YAML configurations and
-`FINAL_SCHEME.json`. Obtain the exact six checkpoints and ExtraTrees/joblib
-selector from the authors (corresponding author Dong Ni, nidong@szu.edu.cn).
-There is no publicly verified model-download URL in this release; requesting
-assets does not guarantee that they can be distributed under the applicable
-terms. Put supplied assets at the paths relative to `FINAL_SCHEME.json` and
-verify each SHA-256 against `measurement_provenance.json` before use. No automatic
-download, model substitution or checkpoint regeneration is provided.
+Download the [F04 v0.1.2 bundle](https://github.com/touch3080/plax-measurement-code/releases/download/v0.1.2/f04-models-v0.1.2.zip),
+verify its hash in [the release manifest](model_assets_v0.1.2.json), and extract it.
+It contains minimal inference configurations, YOLO architecture definitions,
+six tensor-only checkpoints, the ExtraTrees/joblib selector and `FINAL_SCHEME.json`.
+The loader checks each file against `MODEL_MANIFEST.json` before deserialization.
+Removing training metadata changes file hashes while preserving all network
+tensors; original and published identities are recorded in the manifest.
+The older `vendor/bundle_template/` documents the legacy author-container layout;
+use the downloaded bundle's own scheme for the v0.1.2 assets.
 
 In an isolated environment with dependencies compatible with the supplied
 checkpoint, install PyTorch, torchvision, Ultralytics, OpenCV, NumPy, SciPy,
-scikit-learn, joblib, PyYAML and tqdm. Training-compatible versions must be
-confirmed by the model provider; a validated inference lockfile is not supplied.
+scikit-learn, joblib, PyYAML and tqdm. The successful local check used Python
+3.10.20, PyTorch 2.10.0+cu128, torchvision 0.25.0+cu128, Ultralytics 8.4.19 and
+scikit-learn 1.7.2 on Windows with an RTX 5060 Laptop GPU. The [tested direct
+dependency constraints](inference-constraints.txt) record the other versions;
+they are not a complete transitive lockfile or a test of arbitrary platforms.
 Only load trusted PyTorch/joblib files: these formats can execute code when loaded.
 
 ```bash
-python vendor/run_f04.py --bundle /path/to/bundle/FINAL_SCHEME.json --video /path/to/video.avi --output-dir /path/to/new-results --device cpu
+python vendor/run_f04.py --bundle /path/to/bundle/FINAL_SCHEME.json --video /path/to/video.avi --output-dir /path/to/new-results --device cuda:0 --batch-size 4
 ```
 
 Full heatmap checkpoint loading disables ImageNet pretrained initialization.
 The output contains original and T01 endpoint columns; pass the original columns
 to the measurement CLI with the appropriate branch. Calibration, clip selection,
 reference annotation, training, and cohort assembly remain separate steps.
+The CUDA command above matches the tested configuration. CPU execution was not
+tested in this audit. The two selected clips exercised multiple 64-frame chunks;
+their F04-SG5, F04-T01 and separately extracted fresh E10-SG5 trajectories produced
+six video/branch comparisons and 12 cycles with identical ED/ES markers and zero
+volume or EF differences. No full-cohort rerun or training reproduction is implied.
+
+The reference here is the frozen output generated on this local runtime. An
+earlier comparison to the original source workstation on a separate EchoNet-LVH
+video retained nonzero differences (up to 1.0685 native pixels for raw F04 and
+0.3828 pixels for T01). Exact agreement in this local audit does not establish
+exact cross-platform numerical equivalence.
 
 ## Attribution and provenance
 
@@ -143,6 +162,8 @@ The source repository carries MIT, Copyright (c) 2024 Haibo Meng; a copy is in
 license or copyright notice was present in the inspected `f04_vendor` files.
 Third-party packages retain their own licenses; importing Ultralytics does not
 make its package or model assets covered by this repository's MIT license.
+The released E10/E11 state dictionaries retain the original checkpoints'
+AGPL-3.0 designation and include its license text. See [model notices](model_downloads.md).
 
 `measurement_provenance.json` records original source hashes, extracted symbol
 hashes, copied-file identity, release-file hashes and required asset hashes.
