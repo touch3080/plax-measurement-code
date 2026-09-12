@@ -1,0 +1,94 @@
+{
+  "release_version": "0.1.3",
+  "date": "2026-09-13",
+  "scope": "Portable implementation of the conditional A/B point diagnostic; no raw-image reconstruction or verified spacing claim.",
+  "source_records": [
+    {
+      "source": "conditional_scale_diagnostic.py",
+      "sha256": "453e3a9567a004cdc6b9557bc05516a0e71d8da3e6203129992c4a8f1adce274"
+    },
+    {
+      "source": "audit_scale_sensitivity.py",
+      "sha256": "bb932ec1142feb2f789d2799f62d143cd747fa04454017fb76a78c5669468be6"
+    }
+  ],
+  "input_scope": "Explicitly authorized, upstream-preselected CSV. Only the synthetic example and aggregate comparison counts/errors are distributed.",
+  "preserved_rules": [
+    "Normalize the stored-frame x/y sampling line; rescale frozen nominal cm by effective mm/pixel divided by 1.5.",
+    "Dynamic ED exactly reuses same-reader static ED diameter and direction.",
+    "A/B and all methods use one common complete three-reader subset; do not fill missing directions.",
+    "Calculate each reader Teichholz EF before averaging; keep nonphysical EF without clipping.",
+    "No reference-based scale choice, fitting, refitting, confidence intervals or bootstrap."
+  ],
+  "local_cli_parity": {
+    "date": "2026-09-13",
+    "preselected_cases": 149,
+    "common_cases": 145,
+    "input_phase_rows": 2682,
+    "same_common_subset": true,
+    "aggregate_numeric_fields_compared": 688,
+    "aggregate_maximum_absolute_difference": 0.0,
+    "measurement_rows_compared": 2610,
+    "measurement_numeric_columns_compared": [
+      "EF_change_pp",
+      "conditional_ED_cm",
+      "conditional_EF",
+      "conditional_ES_cm",
+      "effective_ED_mm",
+      "effective_ES_mm",
+      "nominal_ED_cm",
+      "nominal_EF",
+      "nominal_ES_cm",
+      "reference_EF",
+      "sx_mm",
+      "sy_mm"
+    ],
+    "measurement_column_max_abs_difference": {
+      "EF_change_pp": 0.0,
+      "conditional_ED_cm": 0.0,
+      "conditional_EF": 0.0,
+      "conditional_ES_cm": 0.0,
+      "effective_ED_mm": 0.0,
+      "effective_ES_mm": 0.0,
+      "nominal_ED_cm": 0.0,
+      "nominal_EF": 0.0,
+      "nominal_ES_cm": 0.0,
+      "reference_EF": 0.0,
+      "sx_mm": 0.0,
+      "sy_mm": 0.0
+    },
+    "isotropic_1_5_vs_nominal_EF_max_difference_pp": 0.0,
+    "nominal_vs_frozen_max_EF_residual_pp": 4.973799150320701e-14,
+    "source_files_unchanged": true,
+    "restricted_rows_published": false
+  },
+  "software": {
+    "python": "3.13.12",
+    "platform": "Windows",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "3.0.3",
+      "scipy": "1.17.1",
+      "pytest": "9.1.1"
+    }
+  },
+  "synthetic_tests": {
+    "passed_release_wide": 61,
+    "failed": 0,
+    "new_conditional_tests": 17,
+    "seconds": 5.71
+  },
+  "limitations": [
+    "This check reproduces the declared private diagnostic on its selected evidence subset, not the original raw-MAT reconstruction.",
+    "Physical FOV semantics, source identity, axis/grid correspondence, reference independence and clinical validity are not established by this CLI.",
+    "A/B are stated alternatives, not measurements or exhaustive conversion hypotheses."
+  ],
+  "release_file_sha256": {
+    "src/plax_measurement/conditional_scale.py": "7fa83b90fae872c3c2b59a7d869698bf2de451661420f18a2666c169a13f985b",
+    "scripts/analyze_conditional_scale.py": "4406f7904e3aed84e66c329e6ff878fdf1877ccbefb5d0290b8b112c54f61839",
+    "src/plax_measurement/cmr.py": "e9b9cf82b75159e6e06c5936ba2c64cc94a67658a207076159775de88ae79a6e",
+    "tests/test_conditional_scale.py": "22342a3d7e7602736a73750f21d5980894ed175861359d789db19703150b41db",
+    "docs/conditional_scale.md": "b1cd004bc180b1098b05fbb1f111a5c23d4c077c3f1d07da7f3e1adb8b2d1855",
+    "examples/conditional_scale_synthetic.csv": "84c77de3a6e9f3a4f3162bf00b05de7294fdbcf158800c280d8d9cfba35ae145"
+  }
+}

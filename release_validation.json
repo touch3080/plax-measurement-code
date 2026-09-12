@@ -1,24 +1,21 @@
 {
-  "platform": "Windows",
+  "release_version": "0.1.3",
+  "date": "2026-09-13",
   "python": "3.13.12",
+  "platform": "Windows",
   "packages": {
     "numpy": "2.4.6",
     "pandas": "3.0.3",
     "scipy": "1.17.1",
-    "matplotlib": "3.10.9",
-    "threadpoolctl": "3.6.0",
-    "pytest": "9.1.1",
-    "plax-measurement-code": "0.1.2"
+    "pytest": "9.1.1"
   },
-  "release_version": "0.1.2",
-  "date": "2026-09-13",
-  "package_version_scope": "Source v0.1.2 core tests use this scientific environment; model inference uses the separate environment recorded in docs/model_release_validation.json.",
+  "package_version_scope": "Source version 0.1.3; model inference environment and asset verification are preserved under v0.1.2 history.",
   "checks": {
     "unit_tests": {
       "command": "python -m pytest -q",
-      "passed": 44,
+      "passed": 61,
       "failed": 0,
-      "seconds": 4.89
+      "seconds": 5.71
     },
     "aggregate_integrity": {
       "command": "python scripts/verify_source_data.py",
@@ -28,27 +25,32 @@
       "command": "python -m compileall -q src scripts vendor",
       "passed": true
     },
-    "published_model_assets": {
-      "details": "docs/model_release_validation.json",
-      "f04_videos": 2,
-      "f04_frames": 275,
-      "f04_endpoint_and_ef_maximum_difference": 0.0,
-      "cmr_network_tensor_identity": true,
-      "cmr_synthetic_nifti_cli": true
+    "conditional_scale_local_parity": {
+      "details": "docs/conditional_scale_provenance.json",
+      "preselected_cases": 149,
+      "common_cases": 145,
+      "aggregate_numeric_fields_compared": 688,
+      "aggregate_maximum_absolute_difference": 0.0,
+      "measurement_rows_compared": 2610,
+      "measurement_maximum_absolute_difference": 0.0,
+      "same_common_subset": true,
+      "restricted_rows_published": false
+    },
+    "model_assets": {
+      "release": "v0.1.2",
+      "assets_and_inference_loaders_unchanged": true,
+      "model_inference_rerun_for_this_release": false
     },
     "figures": {
       "regenerated_for_this_release": false,
-      "included_aggregate_files_unchanged": true,
-      "prior_generation_and_visual_check": "historical_validations[0].checks.figures (v0.1.0)"
+      "included_aggregate_files_unchanged": true
     }
   },
   "limitations": [
-    "Two representative CUDA video checks, not a full-cohort rerun, CPU validation or training reproduction.",
-    "Prior cross-workstation EchoNet-LVH differences remain: up to 1.0685 px raw F04 and 0.3828 px T01.",
-    "CMR checks establish model loading/tensor parity and a synthetic prepared-NIfTI interface; they do not establish clinical accuracy or raw-MAT preprocessing.",
-    "CMR physical calibration, training/evaluation overlap and reference independence remain separate limitations.",
-    "Published hashes identify recovered source containers and the current release; historical inference-time hashes are unavailable.",
-    "Participant inputs and independently distributed third-party pretrained models are not included."
+    "This check reproduces the declared private diagnostic on its selected evidence subset, not the original raw-MAT reconstruction.",
+    "Physical FOV semantics, source identity, axis/grid correspondence, reference independence and clinical validity are not established by this CLI.",
+    "A/B are stated alternatives, not measurements or exhaustive conversion hypotheses.",
+    "No new full-cohort image inference or model-training reproduction."
   ],
   "historical_validations": [
     {
@@ -197,6 +199,59 @@
           },
           "publication_scope": "Only aggregate verification and tested dependency versions; restricted records remain local."
         }
+      ]
+    },
+    {
+      "platform": "Windows",
+      "python": "3.13.12",
+      "packages": {
+        "numpy": "2.4.6",
+        "pandas": "3.0.3",
+        "scipy": "1.17.1",
+        "matplotlib": "3.10.9",
+        "threadpoolctl": "3.6.0",
+        "pytest": "9.1.1",
+        "plax-measurement-code": "0.1.2"
+      },
+      "release_version": "0.1.2",
+      "date": "2026-09-13",
+      "package_version_scope": "Source v0.1.2 core tests use this scientific environment; model inference uses the separate environment recorded in docs/model_release_validation.json.",
+      "checks": {
+        "unit_tests": {
+          "command": "python -m pytest -q",
+          "passed": 44,
+          "failed": 0,
+          "seconds": 4.89
+        },
+        "aggregate_integrity": {
+          "command": "python scripts/verify_source_data.py",
+          "verified_files": 7
+        },
+        "syntax": {
+          "command": "python -m compileall -q src scripts vendor",
+          "passed": true
+        },
+        "published_model_assets": {
+          "details": "docs/model_release_validation.json",
+          "f04_videos": 2,
+          "f04_frames": 275,
+          "f04_endpoint_and_ef_maximum_difference": 0.0,
+          "cmr_network_tensor_identity": true,
+          "cmr_synthetic_nifti_cli": true
+        },
+        "figures": {
+          "regenerated_for_this_release": false,
+          "included_aggregate_files_unchanged": true,
+          "prior_generation_and_visual_check": "historical_validations[0].checks.figures (v0.1.0)"
+        }
+      },
+      "limitations": [
+        "Two representative CUDA video checks, not a full-cohort rerun, CPU validation or training reproduction.",
+        "Prior cross-workstation EchoNet-LVH differences remain: up to 1.0685 px raw F04 and 0.3828 px T01.",
+        "CMR checks establish model loading/tensor parity and a synthetic prepared-NIfTI interface; they do not establish clinical accuracy or raw-MAT preprocessing.",
+        "CMR physical calibration, training/evaluation overlap and reference independence remain separate limitations.",
+        "Published hashes identify recovered source containers and the current release; historical inference-time hashes are unavailable.",
+        "Participant inputs and independently distributed third-party pretrained models are not included."
       ]
     }
   ]
