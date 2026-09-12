@@ -1,10 +1,10 @@
 # PLAX measurement code
 
-Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.4**. This repository does not imply journal acceptance.
+Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.5**. This repository does not imply journal acceptance.
 
 Correspondence: **Dong Ni (倪东), nidong@szu.edu.cn**.
 
-Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.4**; use the versioned release when citing or reproducing this draft. The v0.1.0, v0.1.1, v0.1.2 and v0.1.3 tags remain available.
+Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.5**; use the versioned release when citing or reproducing this draft. The v0.1.0, v0.1.1, v0.1.2 v0.1.3 and v0.1.4 tags remain available.
 
 The study distinguishes agreement with human measurements from association with a separately generated functional or physiological comparator. This release contains portable statistical analyses, measurement processing, model source code and the aggregate data needed to redraw the four main figures.
 
@@ -14,7 +14,7 @@ Version 0.1.2 adds publicly downloadable F04 and CMR model bundles, with trainin
 
 Version 0.1.3 adds portable conditional CMR A/B axis-scale point diagnostics and a synthetic input example. The source-candidate selection and physical interpretation remain explicit upstream assumptions; see [conditional-scale scope and schema](docs/conditional_scale.md). Model assets remain at v0.1.2.
 
-Version 0.1.4 adds aggregate-count reproduction of the post hoc exploratory CAMEO paired cut-in observation and updates Figure 3. Dynamic labels are based on author-confirmed retrospective F04 review, not recovered explicit historical zeros. See [paired cut-in definitions and limits](docs/paired_cutin.md). No model or full imaging-pipeline validation is added; model assets remain at v0.1.2.
+Version 0.1.5 separates six author-reported transient model-output failures (only one or two isolated frames per affected video) from anatomical cut-in records. Figure 3 again shows static cut-in categories; the previous v0.1.4 zero-event paired interpretation and its test are withdrawn. See [classification and correction](docs/paired_cutin.md). Model assets and inference algorithms remain unchanged.
 
 ## Install and verify
 
@@ -42,7 +42,7 @@ Prepare locally authorized inputs using the schemas in the linked documentation.
 | NT-proBNP associations and leave-one-patient-out validation | `scripts/analyze_clinical.py` | [Clinical input schema and estimands](docs/clinical.md) |
 | Endpoint measurement, phase selection and geometry | `scripts/analyze_geometry.py` | [Measurement and model scope](docs/models.md) |
 | Conditional CMR A/B axis-scale point diagnostics | `scripts/analyze_conditional_scale.py` | [Input schema and assumption scope](docs/conditional_scale.md) |
-| Paired CAMEO cut-in proportions and exact McNemar test | `scripts/analyze_paired_cutin.py` | [Aggregate schema and observation scope](docs/paired_cutin.md) |
+| Generic paired-count arithmetic (no current empirical CAMEO paired test) | `scripts/analyze_paired_cutin.py` | [Aggregate schema and observation scope](docs/paired_cutin.md) |
 | Aggregate manuscript figures | `scripts/build_figures.py` | [Data and reproducibility](docs/reproducibility.md) |
 
 ```bash

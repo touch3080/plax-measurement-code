@@ -1,5 +1,5 @@
 {
-  "release_version": "0.1.4",
+  "release_version": "0.1.5",
   "date": "2026-09-13",
   "python": "3.13.12",
   "platform": "Windows",
@@ -10,62 +10,42 @@
     "matplotlib": "3.10.9",
     "pytest": "9.1.1",
     "threadpoolctl": "3.6.0",
-    "plax-measurement-code": "0.1.4"
+    "plax-measurement-code": "0.1.5"
   },
-  "package_version_scope": "Source version 0.1.4 checked in the adopted analysis environment. Earlier snapshots and model inference checks retain their historical versions.",
   "checks": {
     "unit_tests": {
       "command": "python -m pytest -q",
       "passed": 71,
       "failed": 0,
-      "seconds": 6.43
+      "seconds": 7.65
     },
     "aggregate_integrity": {
       "command": "python scripts/verify_source_data.py",
-      "verified_files": 9
+      "verified_files": 8,
+      "original_seven_unchanged": true
     },
     "syntax": {
-      "command": "python -m compileall -q src scripts vendor",
+      "command": "python -m compileall -q src scripts",
       "passed": true
     },
-    "paired_cutin_arithmetic": {
-      "details": "docs/paired_cutin_provenance.json",
-      "numeric_fields_compared": 60,
-      "maximum_absolute_difference": 0,
-      "analysis_sets": 2,
-      "scope": "Every numeric leaf produced by the portable paired-summary function, including repeated counts, compared with the finalized aggregate output. No private observations are revalidated.",
-      "source": "source_data/paired_cutin_summary.json",
-      "command": "python scripts/analyze_paired_cutin.py --input source_data/paired_cutin_2x2.csv --output-dir outputs/paired_cutin"
+    "figures": {
+      "updated": "figure3_plax_geometry",
+      "visual_review_passed": true,
+      "other_figures_unchanged": true
     },
     "model_assets": {
       "release": "v0.1.2",
-      "assets_and_inference_loaders_unchanged": true,
-      "model_inference_rerun_for_this_release": false
-    },
-    "figures": {
-      "regenerated_for_this_release": [
-        "figure3_plax_geometry"
-      ],
-      "formats": [
-        "pdf",
-        "svg",
-        "png"
-      ],
-      "png_dpi": 350,
-      "regenerated_png_matches_approved_png": true,
-      "other_figure_files_preserved": 9,
-      "earlier_aggregate_files_preserved": 7
+      "inference_algorithms_unchanged": true,
+      "new_inference_performed": false
     }
   },
   "limitations": [
-    "Aggregate arithmetic reproduction does not independently verify the manual observations.",
-    "Dynamic negatives come from author-confirmed retrospective F04 review; explicit historical zero labels were not recovered.",
-    "Static named model, dynamic reviewer count and reader identity correspondence are not established.",
-    "The cut-in endpoint is video/path-level and is not restricted to a strict common ES frame.",
-    "The 96-video and 100-video sets are nested; P values are unadjusted and post hoc exploratory.",
-    "Marginal Wilson intervals are not paired-difference intervals; no paired-difference interval is estimated.",
-    "No new model inference, full-cohort image reanalysis or independent clinical validation."
+    "The author separates transient quality-/motion-associated model failures from mechanism-related cut-in retrospectively.",
+    "No comparable empirical binary dynamic cut-in labels or paired inference are claimed.",
+    "One or two isolated frames per affected video were reported; exact frame positions and case-specific counts were not supplied.",
+    "No frame-level error rate or effect on EF is estimated."
   ],
+  "historical_validation_notice": "Earlier arithmetic checks remain records of their then-used input; the v0.1.4 empirical paired interpretation is superseded.",
   "historical_validations": [
     {
       "release_version": "0.1.0",
@@ -321,6 +301,75 @@
         "Physical FOV semantics, source identity, axis/grid correspondence, reference independence and clinical validity are not established by this CLI.",
         "A/B are stated alternatives, not measurements or exhaustive conversion hypotheses.",
         "No new full-cohort image inference or model-training reproduction."
+      ]
+    },
+    {
+      "release_version": "0.1.4",
+      "date": "2026-09-13",
+      "python": "3.13.12",
+      "platform": "Windows",
+      "packages": {
+        "numpy": "2.4.6",
+        "pandas": "3.0.3",
+        "scipy": "1.17.1",
+        "matplotlib": "3.10.9",
+        "pytest": "9.1.1",
+        "threadpoolctl": "3.6.0",
+        "plax-measurement-code": "0.1.5"
+      },
+      "package_version_scope": "Source version 0.1.4 checked in the adopted analysis environment. Earlier snapshots and model inference checks retain their historical versions.",
+      "checks": {
+        "unit_tests": {
+          "command": "python -m pytest -q",
+          "passed": 71,
+          "failed": 0,
+          "seconds": 6.43
+        },
+        "aggregate_integrity": {
+          "command": "python scripts/verify_source_data.py",
+          "verified_files": 9
+        },
+        "syntax": {
+          "command": "python -m compileall -q src scripts vendor",
+          "passed": true
+        },
+        "paired_cutin_arithmetic": {
+          "details": "docs/paired_cutin_provenance.json",
+          "numeric_fields_compared": 60,
+          "maximum_absolute_difference": 0,
+          "analysis_sets": 2,
+          "scope": "Every numeric leaf produced by the portable paired-summary function, including repeated counts, compared with the finalized aggregate output. No private observations are revalidated.",
+          "source": "source_data/paired_cutin_summary.json",
+          "command": "python scripts/analyze_paired_cutin.py --input source_data/paired_cutin_2x2.csv --output-dir outputs/paired_cutin"
+        },
+        "model_assets": {
+          "release": "v0.1.2",
+          "assets_and_inference_loaders_unchanged": true,
+          "model_inference_rerun_for_this_release": false
+        },
+        "figures": {
+          "regenerated_for_this_release": [
+            "figure3_plax_geometry"
+          ],
+          "formats": [
+            "pdf",
+            "svg",
+            "png"
+          ],
+          "png_dpi": 350,
+          "regenerated_png_matches_approved_png": true,
+          "other_figure_files_preserved": 9,
+          "earlier_aggregate_files_preserved": 7
+        }
+      },
+      "limitations": [
+        "Aggregate arithmetic reproduction does not independently verify the manual observations.",
+        "Dynamic negatives come from author-confirmed retrospective F04 review; explicit historical zero labels were not recovered.",
+        "Static named model, dynamic reviewer count and reader identity correspondence are not established.",
+        "The cut-in endpoint is video/path-level and is not restricted to a strict common ES frame.",
+        "The 96-video and 100-video sets are nested; P values are unadjusted and post hoc exploratory.",
+        "Marginal Wilson intervals are not paired-difference intervals; no paired-difference interval is estimated.",
+        "No new model inference, full-cohort image reanalysis or independent clinical validation."
       ]
     }
   ]

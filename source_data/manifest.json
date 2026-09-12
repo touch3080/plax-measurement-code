@@ -1,6 +1,6 @@
 {
-  "source": "Frozen aggregate source-data package, with post hoc exploratory paired cut-in aggregates added in v0.1.4; prior seven files preserved unchanged.",
-  "release_version": "0.1.4",
+  "source": "Original seven CMR/clinical/static-cut-in aggregate files retained. Author-reported transient model-quality failures are a separate descriptive endpoint. Previous empirical paired cut-in inputs are withdrawn from the current release.",
+  "release_version": "0.1.5",
   "data_level": "aggregate_only",
   "files": [
     {
@@ -39,14 +39,9 @@
       "sha256": "b93a7204ced437cd593d245e602382546c31bef0cf6fecbabd0ae067771deb6a"
     },
     {
-      "file": "paired_cutin_summary.json",
-      "bytes": 5443,
-      "sha256": "0696a35f46649c251b383cf0e4016c6b7bcc2a94a31f0c85b0de644e9b52a9d4"
-    },
-    {
-      "file": "paired_cutin_2x2.csv",
-      "bytes": 468,
-      "sha256": "e288a33bde35659253a12b6ae9bdb4198d621a717f6edb90d8eb71ca9069454c"
+      "file": "dynamic_quality_failure_summary.json",
+      "bytes": 1423,
+      "sha256": "5c90f8137cfefa70792d75d0ab1f58141b111506b75c43cdc9228fa1a6c9526a"
     }
   ]
 }

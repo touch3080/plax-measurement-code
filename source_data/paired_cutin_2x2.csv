@@ -1,9 +1,0 @@
-﻿analysis_set,static_status,dynamic_status,n
-es_valid_96,static_negative,dynamic_negative,64
-es_valid_96,static_negative,dynamic_positive,0
-es_valid_96,static_positive,dynamic_negative,32
-es_valid_96,static_positive,dynamic_positive,0
-all_100_sensitivity,static_negative,dynamic_negative,67
-all_100_sensitivity,static_negative,dynamic_positive,0
-all_100_sensitivity,static_positive,dynamic_negative,33
-all_100_sensitivity,static_positive,dynamic_positive,0

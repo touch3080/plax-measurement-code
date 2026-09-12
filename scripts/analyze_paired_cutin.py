@@ -20,8 +20,9 @@ def main() -> None:
     result = {
         "scope": "Statistics of supplied aggregate paired counts; this computation does not verify the input observations or their provenance.",
         "published_study_context": {
-            "design": "post hoc exploratory video-level paired observation",
-            "dynamic_label_evidence": "Author-confirmed retrospective manual review on 2026-09-13; explicit historical dynamic zero records were not recovered.",
+            "design": "generic paired-count arithmetic; no current empirical paired cut-in inference",
+            "empirical_study_test_reported": False,
+            "dynamic_label_evidence": "Current study inference withdrawn: transient model-quality failures are reported separately and comparable binary dynamic cut-in labels are not established. This utility calculates only caller-supplied counts.",
             "dynamic_path": "F04", "static_path_named_model": None,
             "strict_same_es_endpoint": False,
             "paired_difference_ci_estimated": False,

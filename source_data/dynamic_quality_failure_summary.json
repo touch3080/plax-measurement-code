@@ -1,0 +1,31 @@
+{
+  "status": "author_reported_model_output_quality_failures",
+  "date": "2026-09-13",
+  "dynamic_model": "F04",
+  "endpoint": "Videos with transient isolated-frame output distortion, classified by the author as quality-/motion-associated model failure, separately from mechanism-related dynamic cut-in.",
+  "all_videos": {
+    "affected": 6,
+    "reviewed": 100,
+    "percent": 6.0
+  },
+  "es_valid_subset": {
+    "affected": 6,
+    "reviewed": 96,
+    "percent": 6.25
+  },
+  "appearance": "One or two isolated frames per affected video with abrupt sampling-line deviation towards the left atrium; identified by comparison with neighboring frames and expected temporal continuity.",
+  "possible_mechanisms": "Abrupt image-quality degradation, respiratory motion or probe movement; attributed by the author, not independently adjudicated or quantitatively tested.",
+  "frame_indices_provided": false,
+  "affected_frames_per_video_reported_range": [
+    1,
+    2
+  ],
+  "exact_case_specific_frame_counts_provided": false,
+  "frame_level_failure_rate_estimated": false,
+  "effect_on_ef_quantified": false,
+  "classification_predefined": false,
+  "comparable_binary_dynamic_cutin_labels_established": false,
+  "paired_cutin_test_reported": false,
+  "supersedes": "Unqualified zero-event paired cut-in interpretation in v0.1.4; prior release is historical.",
+  "public_case_identifiers": false
+}

@@ -92,19 +92,21 @@ style(b,'Paired comparisons  |  95% confidence intervals','b'); b.axvline(0,colo
 save(fig,'figure2_cmr_signal')
 
 geo=json.loads((SRC/'plax_geometry_summary.json').read_text())
-cut=json.loads((SRC/'paired_cutin_summary.json').read_text())['sets']['es_valid_96']
+cut=json.loads((SRC/'static_cutin_summary.json').read_text())
 fig,(a,b)=plt.subplots(2,1,figsize=(7.1,5.2),gridspec_kw={'height_ratios':[1.2,1]},layout='constrained')
 forest(a,[f"{r['set']}: {'F04' if r['model']=='f04' else 'EchoNet-LVH'}" for r in geo],
     [(r['median'],r['q1'],r['q3']) for r in geo],[GREEN,BLUE,GREEN,BLUE],(0,30),
     'Perpendicular offset / ED line length (%)')
 style(a,'Same-ES geometry  |  A: 91 pairs; B: 94 pairs','a')
-forest(b,['Reviewed static lines','F04 dynamic lines'],
-    [(cut[k]['percent'],*cut[k]['wilson_95_ci_percent']) for k in ['static','dynamic']],
-    [GREY,GREEN],(-2,52),'Videos with any cut-in marker (%)')
-for i,k in enumerate(['static','dynamic']):
-    b.text(47,i,f"{cut[k]['positive']}/{cut[k]['total']}",va='center',ha='left',fontsize=9)
-style(b,'Paired cut-in review  |  96 ES-valid videos','b')
-b.set_xticks([0,10,20,30,40,50])
+labels=[r['label'] for r in cut['categories']]
+values=[100*r['n']/cut['denominator'] for r in cut['categories']]
+b.barh(range(4),values,color=[GREY,BLUE,ORANGE,GREEN],height=.58,zorder=3)
+b.set_yticks(range(4),labels); b.set_ylim(3.6,-.6); b.set_xlim(0,80)
+b.set_xlabel('Videos with the indicated static marker category (%)',labelpad=8)
+for i,r in enumerate(cut['categories']):
+    b.text(values[i]+1.2,i,f"{r['n']}/{cut['denominator']}",va='center',fontsize=9)
+style(b,'Static cut-in records  |  96 ES-valid videos','b')
+b.set_xticks([0,20,40,60,80])
 save(fig,'figure3_plax_geometry')
 
 c=json.loads((SRC/'clinical_association_summary.json').read_text())
