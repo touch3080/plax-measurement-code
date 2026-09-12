@@ -2,7 +2,7 @@
 
 ## What is directly reproducible from this repository
 
-`python scripts/build_figures.py` redraws the four main manuscript figures from the included aggregate files. `source_data/manifest.json` records each included file's SHA-256 digest and role. The copied aggregates preserve the frozen Nature draft results; they have not been recomputed or altered for this release.
+`python scripts/build_figures.py` redraws the four main manuscript figures from the included aggregate files. `source_data/manifest.json` records each included file's SHA-256 digest and role. Version 0.1.4 adds newly documented post hoc paired cut-in aggregates for Figure 3; the earlier aggregate files are retained unchanged. It does not rerun image inference or other scientific analyses.
 
 The CMR, clinical and endpoint-processing commands accept locally supplied inputs. Their documentation specifies the schema and statistical estimands. Source provenance records distinguish original files from portable release adaptations. No identifier-level source table is included, so the complete study estimates cannot be independently regenerated from this repository alone.
 
@@ -14,6 +14,8 @@ The CMR, clinical and endpoint-processing commands accept locally supplied input
 - `three_reader_sensitivity_analysis_results.csv`: aggregate CMR sensitivity estimates.
 - `plax_geometry_summary.json`: aggregate endpoint-axis geometry by study set and method.
 - `static_cutin_summary.json`: reviewed static cut-in category counts and proportion interval.
+- `paired_cutin_summary.json`: new post hoc exploratory paired CAMEO cut-in summaries for the 96-video ES-valid set and nested 100-video sensitivity set; dynamic review is author-confirmed.
+- `paired_cutin_2x2.csv`: explicit aggregate paired cells used by the public arithmetic reproduction command; no participant rows.
 - `clinical_association_summary.json`: the primary 45-examination, 39-patient clinical analysis, including 83 videos. This is the full primary cohort, not the smaller E10 common-case sensitivity cohort.
 
 ## Environments and validation
@@ -32,9 +34,21 @@ The public release is checked separately using synthetic inputs and source-funct
 Version 0.1.1 passed 41 synthetic tests, rechecked the seven frozen aggregate files,
 and passed Python compilation checks. The 30-test run, four-figure generation and
 visual inspection in v0.1.0 are retained under `historical_validations` in
-`release_validation.json`; the figures were not regenerated during this update.
+`release_validation.json`; the figures were not regenerated during v0.1.1.
 
 Primary clinical processing and the T01 temporal sensitivity path are different settings. CMR intervals on leave-one-out calibrated errors resample frozen out-of-fold predictions and are conditional on those fitted predictions; clinical cross-validation bootstrap intervals rerun the full fitting process. Do not interpret either as external clinical validation.
+
+The v0.1.4 paired cut-in command reproduces Wilson marginal intervals, an exact
+two-sided McNemar P value and the static-minus-dynamic rate difference point
+estimate from aggregate counts. It does not estimate a paired-difference
+interval or independently verify the retrospective review labels. See
+[paired cut-in scope](paired_cutin.md) and `release_validation.json`. Figure 3 is
+regenerated for this update; the other figure outputs are not regenerated.
+The approved PDF, SVG and PNG are included as [v0.1.4 release assets](https://github.com/touch3080/plax-measurement-code/releases/tag/v0.1.4).
+Use `python scripts/build_figures.py --only figure3_plax_geometry` to write only
+Figure 3. The adopted environment snapshot is retained as recorded for v0.1.3;
+`release_validation.json` records the installed source-package version 0.1.4
+and the dependency versions used for this update.
 
 ## Recorded clinical settings and v0.1.1 audit
 

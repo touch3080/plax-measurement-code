@@ -1,6 +1,7 @@
 """Render Nature figures from the accompanying frozen aggregate source data."""
 from pathlib import Path
 import csv
+import argparse
 import json
 import matplotlib
 matplotlib.use('Agg')
@@ -10,6 +11,9 @@ from matplotlib.patches import Ellipse, FancyBboxPatch, FancyArrowPatch
 PKG = Path(__file__).resolve().parents[1]
 SRC, OUT = PKG / 'source_data', PKG / 'figures'
 OUT.mkdir(exist_ok=True)
+_parser = argparse.ArgumentParser(description=__doc__)
+_parser.add_argument('--only', help='Render only the named figure stem')
+_args = _parser.parse_args()
 plt.rcParams.update({'font.family':'DejaVu Sans','font.size':9,'axes.labelsize':9,
     'axes.titlesize':10,'axes.titleweight':'bold','axes.spines.top':False,
     'axes.spines.right':False,'pdf.fonttype':42,'ps.fonttype':42,'svg.fonttype':'none',
@@ -17,6 +21,9 @@ plt.rcParams.update({'font.family':'DejaVu Sans','font.size':9,'axes.labelsize':
 GREEN, BLUE, GREY, ORANGE = '#087F6D','#3568A0','#626C77','#B77529'
 
 def save(fig, name):
+    if _args.only and name != _args.only:
+        plt.close(fig)
+        return
     for ext in ['pdf','svg','png']:
         fig.savefig(OUT / f'{name}.{ext}', dpi=350, bbox_inches='tight', facecolor='white')
     plt.close(fig)
@@ -85,16 +92,19 @@ style(b,'Paired comparisons  |  95% confidence intervals','b'); b.axvline(0,colo
 save(fig,'figure2_cmr_signal')
 
 geo=json.loads((SRC/'plax_geometry_summary.json').read_text())
-cut=json.loads((SRC/'static_cutin_summary.json').read_text())
+cut=json.loads((SRC/'paired_cutin_summary.json').read_text())['sets']['es_valid_96']
 fig,(a,b)=plt.subplots(2,1,figsize=(7.1,5.2),gridspec_kw={'height_ratios':[1.2,1]},layout='constrained')
 forest(a,[f"{r['set']}: {'F04' if r['model']=='f04' else 'EchoNet-LVH'}" for r in geo],
     [(r['median'],r['q1'],r['q3']) for r in geo],[GREEN,BLUE,GREEN,BLUE],(0,30),
     'Perpendicular offset / ED line length (%)')
 style(a,'Same-ES geometry  |  A: 91 pairs; B: 94 pairs','a')
-cats=cut['categories']; b.barh(range(4),[c['n'] for c in cats],color=[GREY,ORANGE,BLUE,GREEN],height=.52)
-b.set_yticks(range(4),[c['label'] for c in cats]); b.set_ylim(3.6,-.6); b.set_xlim(0,76)
-for i,c in enumerate(cats): b.text(c['n']+1.4,i,str(c['n']),va='center',fontsize=9)
-b.set_xlabel('Number of static traces'); style(b,'Static cut-in observations  |  96 ES-valid videos','b')
+forest(b,['Reviewed static lines','F04 dynamic lines'],
+    [(cut[k]['percent'],*cut[k]['wilson_95_ci_percent']) for k in ['static','dynamic']],
+    [GREY,GREEN],(-2,52),'Videos with any cut-in marker (%)')
+for i,k in enumerate(['static','dynamic']):
+    b.text(47,i,f"{cut[k]['positive']}/{cut[k]['total']}",va='center',ha='left',fontsize=9)
+style(b,'Paired cut-in review  |  96 ES-valid videos','b')
+b.set_xticks([0,10,20,30,40,50])
 save(fig,'figure3_plax_geometry')
 
 c=json.loads((SRC/'clinical_association_summary.json').read_text())
@@ -110,4 +120,4 @@ forest(b,['Recorded − F04','EchoNet-LVH − F04'],
        [GREEN,GREEN],(-.10,.32),'Paired difference in partial correlation')
 style(b,'Paired uncertainty  |  95% confidence intervals','b'); b.axvline(0,color=GREY,ls='--',lw=.8)
 save(fig,'figure4_clinical_associations')
-print('Rendered 4 figures as PDF, SVG and 350 dpi PNG')
+print(f"Rendered {_args.only or 'all 4 figures'} as PDF, SVG and 350 dpi PNG")

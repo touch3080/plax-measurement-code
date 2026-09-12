@@ -1,6 +1,6 @@
 {
-  "source": "Frozen aggregate source-data package accompanying the Nature submission draft",
-  "release_version": "0.1.0",
+  "source": "Frozen aggregate source-data package, with post hoc exploratory paired cut-in aggregates added in v0.1.4; prior seven files preserved unchanged.",
+  "release_version": "0.1.4",
   "data_level": "aggregate_only",
   "files": [
     {
@@ -37,6 +37,16 @@
       "file": "three_reader_sensitivity_analysis_results.csv",
       "bytes": 1092,
       "sha256": "b93a7204ced437cd593d245e602382546c31bef0cf6fecbabd0ae067771deb6a"
+    },
+    {
+      "file": "paired_cutin_summary.json",
+      "bytes": 5443,
+      "sha256": "0696a35f46649c251b383cf0e4016c6b7bcc2a94a31f0c85b0de644e9b52a9d4"
+    },
+    {
+      "file": "paired_cutin_2x2.csv",
+      "bytes": 468,
+      "sha256": "e288a33bde35659253a12b6ae9bdb4198d621a717f6edb90d8eb71ca9069454c"
     }
   ]
 }

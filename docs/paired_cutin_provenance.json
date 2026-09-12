@@ -1,0 +1,90 @@
+{
+  "release_version": "0.1.4",
+  "date": "2026-09-13",
+  "data_level": "aggregate_only",
+  "scope": "Post hoc exploratory arithmetic reproduction of paired cut-in observations; no new model or full imaging-pipeline validation.",
+  "source_code_records": [
+    {
+      "source": "run_paired_cutin_analysis.py",
+      "sha256": "6d0c8567415aeaa7beb22a24c0982b3df4ecebb516b32cb29a795a7f25190944"
+    },
+    {
+      "source": "reproduce_cutin_aggregates.py",
+      "sha256": "413d6902da336dc6bf098b3fdb90f73689583a5f766895cafafdcd695ef0c76f"
+    }
+  ],
+  "observation_provenance": {
+    "static": "Historical electronic records; single annotator; named static model unknown.",
+    "dynamic": "Author-confirmed retrospective manual review on 2026-09-13 of all 100 F04 videos under the same anatomical definition, including static-marked frames; no observed events.",
+    "dynamic_reviewer_count": null,
+    "same_static_dynamic_reviewer_confirmed": false,
+    "historical_explicit_dynamic_zero_records_recovered": false,
+    "strict_same_es_endpoint": false,
+    "primary_exploratory_set": "96 pre-existing ES-valid videos",
+    "sensitivity_set": "Nested full 100-video set; not an independent replication",
+    "paired_difference_ci_estimated": false,
+    "multiplicity_adjustment": "none; post hoc exploratory",
+    "participant_rows_or_input_hashes_published": false
+  },
+  "aggregate_arithmetic_parity": {
+    "numeric_fields_compared": 60,
+    "maximum_absolute_difference": 0,
+    "analysis_sets": 2,
+    "scope": "Every numeric leaf produced by the portable paired-summary function, including repeated counts, compared with the finalized aggregate output. No private observations are revalidated.",
+    "source": "source_data/paired_cutin_summary.json",
+    "command": "python scripts/analyze_paired_cutin.py --input source_data/paired_cutin_2x2.csv --output-dir outputs/paired_cutin"
+  },
+  "synthetic_checks": {
+    "test_file": "tests/test_cutin.py",
+    "passed": 10,
+    "coverage": [
+      "one-sided discordance and zero-event Wilson bound",
+      "method reversal and exact independent binomial tail",
+      "no discordance",
+      "invalid counts",
+      "missing or duplicate cells",
+      "portable CLI and unchanged synthetic input"
+    ]
+  },
+  "figure3": {
+    "command": "python scripts/build_figures.py --only figure3_plax_geometry",
+    "panel_a_geometry_aggregate_unchanged": true,
+    "panel_b": "Static 32/96 and F04 dynamic 0/96; marginal Wilson 95% intervals",
+    "regenerated_png_matches_approved_png": true,
+    "visual_check": "Labels, counts and intervals legible; zero-event upper confidence bound visible.",
+    "other_figure_files_preserved": 9,
+    "release_assets": {
+      "figure3_plax_geometry.pdf": {
+        "bytes": 25331,
+        "sha256": "a2da3360e0a05473805c5d637272e3cb04ef52d5715cc9f18aa78c4a1203b709"
+      },
+      "figure3_plax_geometry.png": {
+        "bytes": 136853,
+        "sha256": "5690364dc1e76f93c3840967bd77daee4cf4e49cf4ad02760e0e4f58bfcc3e71"
+      },
+      "figure3_plax_geometry.svg": {
+        "bytes": 20309,
+        "sha256": "94729cabbc582a9f180b3b1cd022af57a0946c2bd9ffaeb305587d0a98b7766a"
+      }
+    },
+    "asset_scope": "Approved manuscript Figure 3 files; later PDF/SVG regeneration may change non-statistical metadata or element identifiers."
+  },
+  "original_aggregate_files_preserved": {
+    "clinical_association_summary.json": "bf8c1c3cbbf52dd3e34df6258fc00d4ba12b9061ab3ffedd97e26d1df677cb95",
+    "plax_geometry_summary.json": "d94cd73ec8677a2d4be3abcfe8e3ab01d1bccc4e9edeff334eb83686e59f4cc1",
+    "static_cutin_summary.json": "dbc3d9e6788a2590532eebbac57559acb8670e321925c79cb0081de1f6b611bb",
+    "three_reader_bootstrap_contrasts.csv": "bec833a17caeff3c3c88e24428a3d61582ec09b27f25c783fafe3b3914007b98",
+    "three_reader_cmr_agreement_results.csv": "1d076e73be45c5c63e1583699b39d0626264ff106f1f9e666d34ca3f801373ea",
+    "three_reader_icc_results.csv": "c4ff9cce9dcd7c26431f9200fdc86cc0708c9e67f0383eec19e3310206cdf289",
+    "three_reader_sensitivity_analysis_results.csv": "b93a7204ced437cd593d245e602382546c31bef0cf6fecbabd0ae067771deb6a"
+  },
+  "release_file_sha256": {
+    "src/plax_measurement/cutin.py": "b4d80455dc7403b5ca13a624bea67805c0a153632fcf825a3a7b77c0cec7602c",
+    "scripts/analyze_paired_cutin.py": "78d43b0cde51fa8215f4a3d751a53613f179824c518a0a10ef1ab2a194cc58c4",
+    "tests/test_cutin.py": "a88a13cf8d6541a4c25e219e395ef1ffc0d995708723807d670079cf66d772c3",
+    "docs/paired_cutin.md": "c57a187f8be580fcbbc70c428cd89002ba33ad3b033367c02af4e629db5f4533",
+    "source_data/paired_cutin_summary.json": "0696a35f46649c251b383cf0e4016c6b7bcc2a94a31f0c85b0de644e9b52a9d4",
+    "source_data/paired_cutin_2x2.csv": "e288a33bde35659253a12b6ae9bdb4198d621a717f6edb90d8eb71ca9069454c",
+    "scripts/build_figures.py": "ca8e79d0ee669c82f568824b129d988660b58f9c526f15357811b6effde4d386"
+  }
+}
