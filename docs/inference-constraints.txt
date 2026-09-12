@@ -1,15 +1,4 @@
-# Direct dependencies used in the successful Windows/CUDA video audit, 2026-09-13.
-# Python 3.10.20; CUDA 12.8; RTX 5060 Laptop GPU. Not a transitive lockfile.
-# Install the matching PyTorch CUDA build from its official package index first.
-torch==2.10.0+cu128
-torchvision==0.25.0+cu128
-ultralytics==8.4.19
-opencv-python==4.13.0.92
-numpy==2.2.6
-scipy==1.15.3
-scikit-learn==1.7.2
-joblib==1.5.3
-PyYAML==6.0.3
-tqdm==4.67.3
-pandas==2.3.3
-pillow==12.1.1
+# Compatibility entry for the adopted CMR/F04 reproduction environment.
+# Python 3.10.20, Windows, CUDA runtime 12.8; see current_runtime.md.
+# Install matching PyTorch CUDA wheels first. This is not a historical lockfile.
+-r environments/inference-requirements.txt

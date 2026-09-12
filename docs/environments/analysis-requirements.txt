@@ -1,0 +1,9 @@
+# Python 3.13.12, Windows build 26200.
+# Install matching CUDA PyTorch wheels first for the inference environment.
+-c analysis-freeze.txt
+numpy==2.4.6
+pandas==3.0.3
+scipy==1.17.1
+matplotlib==3.10.9
+threadpoolctl==3.6.0
+pytest==9.1.1

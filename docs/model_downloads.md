@@ -16,8 +16,8 @@ The archive digest is checked separately against the versioned public manifest.
 
 ## F04
 
-Install the [tested inference dependencies](inference-constraints.txt), including
-the matching CUDA build of PyTorch. Then run:
+Install the [adopted inference dependencies](inference-constraints.txt), including
+the matching CUDA build of PyTorch, using the [current runtime instructions](current_runtime.md). Then run:
 
 ```bash
 python vendor/run_f04.py --bundle /models/f04-v0.1.2/FINAL_SCHEME.json --video /data/authorized-video.avi --output-dir /results/new-f04 --device cuda:0 --batch-size 4
@@ -32,9 +32,11 @@ a trusted, hash-verified joblib object.
 
 ## CMR
 
-The checked environment adds `nnunetv2==2.6.4`,
-`dynamic-network-architectures==0.4.3` and `SimpleITK==2.5.4` to the recorded
-PyTorch environment. Prepared cine-SAX NIfTI files must use nnU-Net channel names
+The adopted environment uses `nnunetv2==2.6.4`,
+`dynamic-network-architectures==0.4.3` and `SimpleITK==2.5.4` with Python 3.10.20
+and PyTorch 2.10.0+cu128. The exact dependency snapshots and effective inference
+settings are in [current runtime instructions](current_runtime.md).
+Prepared cine-SAX NIfTI files must use nnU-Net channel names
 such as `case_0000.nii.gz`.
 
 ```bash

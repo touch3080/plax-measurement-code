@@ -18,6 +18,10 @@ Version 0.1.3 adds portable conditional CMR A/B axis-scale point diagnostics and
 
 Use Python 3.10 or newer in a virtual environment. From the repository root:
 
+For the authors' adopted reproduction runtimes, use the exact versions and
+separate inference/analysis environments in [current runtime instructions](docs/current_runtime.md).
+The generic installation below retains the package's broader compatibility range.
+
 ```bash
 python -m pip install -e ".[dev]"
 python -m pytest -q

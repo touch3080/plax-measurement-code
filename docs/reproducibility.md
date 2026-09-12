@@ -18,6 +18,13 @@ The CMR, clinical and endpoint-processing commands accept locally supplied input
 
 ## Environments and validation
 
+The authors adopted the existing inference and analysis environments on
+13 September 2026. Exact Python/package versions, complete distribution
+snapshots, dependency constraints and effective CMR inference settings are in
+[current reproduction environments](current_runtime.md). These environments
+support the public release and are distinct from historical CMR training and
+inference environments that have not been fully recovered.
+
 The historical CMR reanalysis used Python 3.10.20, NumPy 2.2.6, pandas 2.3.3, SciPy 1.15.3 and Matplotlib 3.10.8. These are recorded historical versions, not a claim that the portable release was rerun in that environment.
 
 The public release is checked separately using synthetic inputs and source-function comparisons. The tested package versions and checks are recorded in `release_validation.json`. Broad dependency ranges in `pyproject.toml` specify intended compatibility; they do not certify every possible combination. Statistical results may differ in last-digit rounding across library versions.
