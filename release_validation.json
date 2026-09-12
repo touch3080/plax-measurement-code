@@ -1,5 +1,4 @@
 {
-  "release_version": "0.1.0",
   "date": "2026-09-12",
   "platform": "Windows",
   "python": "3.13.12",
@@ -10,57 +9,123 @@
     "matplotlib": "3.10.9",
     "threadpoolctl": "3.6.0",
     "pytest": "9.1.1",
-    "plax-measurement-code": "0.1.0"
-  },
-  "checks": {
-    "unit_tests": {
-      "command": "python -m pytest -q",
-      "passed": 30,
-      "failed": 0,
-      "inputs": "synthetic"
-    },
-    "aggregate_integrity": {
-      "command": "python scripts/verify_source_data.py",
-      "verified_files": 7
-    },
-    "figures": {
-      "command": "python scripts/build_figures.py",
-      "figures": 4,
-      "formats": [
-        "pdf",
-        "svg",
-        "png"
-      ],
-      "png_dpi": 350,
-      "visual_check": "clinical association figure checked for readable labels and intervals"
-    },
-    "syntax": {
-      "command": "python -m compileall -q src scripts vendor",
-      "passed": true
-    },
-    "cmr_source_parity": {
-      "synthetic_cases": 12,
-      "bootstrap_reps": 100,
-      "result": "exact numerical agreement",
-      "details": "docs/cmr_provenance.json"
-    },
-    "clinical_source_parity": {
-      "numeric_fields_compared": 404,
-      "max_abs_difference": 0.0,
-      "association_reps": 20000,
-      "cv_refit_reps": 2000,
-      "participant_rows_exported": false,
-      "details": "docs/clinical_provenance.json"
-    },
-    "optional_f04": {
-      "import_and_bundle_structure_checked": true,
-      "checkpoint_video_inference_checked": false,
-      "details": "docs/measurement_provenance.json"
-    }
+    "plax-measurement-code": "0.1.1"
   },
   "limitations": [
     "No complete independent training reproduction",
     "Restricted participant inputs and trained checkpoints are not included",
-    "Only the listed environment was tested"
+    "Only the listed environment was tested",
+    "The clinical local parity audit requires restricted inputs absent from this repository; only aggregate audit counts and errors are published.",
+    "The E10 parity claim covers the 66 specified fields, not auxiliary family-corrected absolute CV error intervals in the historical archive.",
+    "The v0.1.0 figure generation, CMR source-function parity and optional F04 import/bundle checks are preserved as historical checks; they were not newly rerun for v0.1.1."
+  ],
+  "release_version": "0.1.1",
+  "package_version_scope": "The source tree at version 0.1.1 was checked with the listed environment.",
+  "checks": {
+    "unit_tests": {
+      "command": "python -m pytest -q",
+      "passed": 41,
+      "failed": 0,
+      "inputs": "synthetic",
+      "release_version": "0.1.1",
+      "execution_seconds": 2.39
+    },
+    "aggregate_integrity": {
+      "command": "python scripts/verify_source_data.py",
+      "verified_files": 7,
+      "release_version": "0.1.1"
+    },
+    "syntax": {
+      "command": "python -m compileall -q src scripts vendor",
+      "passed": true,
+      "release_version": "0.1.1"
+    },
+    "clinical_parameter_audit": {
+      "details": "docs/clinical_parameter_audit.json",
+      "phase_video_replays": 496,
+      "phase_cycles": 1241,
+      "phase_maximum_video_numeric_difference": 0.0,
+      "primary_numeric_fields_compared": 404,
+      "primary_maximum_absolute_difference": 0.0,
+      "e10_numeric_fields_compared": 66,
+      "e10_maximum_absolute_difference": 2.498001805406602e-16,
+      "patient_rows_exported": false,
+      "new_image_inference_performed": false,
+      "verified_api_sha256": "76adfd664569984cf312bf510d2496fd9029459ce572bf39b48d8a69d27908a2",
+      "post_parity_compatibility_patch": "Only the implicit single-F04 denominator was restored; audited four/five-method settings unchanged, with the full synthetic test suite passed after this patch."
+    },
+    "figures": {
+      "regenerated_for_this_release": false,
+      "included_aggregate_files_unchanged": true,
+      "prior_generation_and_visual_check": "historical_validations[0].checks.figures (v0.1.0)"
+    }
+  },
+  "historical_validations": [
+    {
+      "release_version": "0.1.0",
+      "date": "2026-09-12",
+      "platform": "Windows",
+      "python": "3.13.12",
+      "packages": {
+        "numpy": "2.4.6",
+        "pandas": "3.0.3",
+        "scipy": "1.17.1",
+        "matplotlib": "3.10.9",
+        "threadpoolctl": "3.6.0",
+        "pytest": "9.1.1",
+        "plax-measurement-code": "0.1.0"
+      },
+      "checks": {
+        "unit_tests": {
+          "command": "python -m pytest -q",
+          "passed": 30,
+          "failed": 0,
+          "inputs": "synthetic"
+        },
+        "aggregate_integrity": {
+          "command": "python scripts/verify_source_data.py",
+          "verified_files": 7
+        },
+        "figures": {
+          "command": "python scripts/build_figures.py",
+          "figures": 4,
+          "formats": [
+            "pdf",
+            "svg",
+            "png"
+          ],
+          "png_dpi": 350,
+          "visual_check": "clinical association figure checked for readable labels and intervals"
+        },
+        "syntax": {
+          "command": "python -m compileall -q src scripts vendor",
+          "passed": true
+        },
+        "cmr_source_parity": {
+          "synthetic_cases": 12,
+          "bootstrap_reps": 100,
+          "result": "exact numerical agreement",
+          "details": "docs/cmr_provenance.json"
+        },
+        "clinical_source_parity": {
+          "numeric_fields_compared": 404,
+          "max_abs_difference": 0.0,
+          "association_reps": 20000,
+          "cv_refit_reps": 2000,
+          "participant_rows_exported": false,
+          "details": "docs/clinical_provenance.json"
+        },
+        "optional_f04": {
+          "import_and_bundle_structure_checked": true,
+          "checkpoint_video_inference_checked": false,
+          "details": "docs/measurement_provenance.json"
+        }
+      },
+      "limitations": [
+        "No complete independent training reproduction",
+        "Restricted participant inputs and trained checkpoints are not included",
+        "Only the listed environment was tested"
+      ]
+    }
   ]
 }

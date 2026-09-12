@@ -1,0 +1,54 @@
+{
+  "release_version": "0.1.1",
+  "scope": "Recorded clinical study settings; no participant-level records or model checkpoints",
+  "phase_selection": {
+    "primary_coordinate_processing": "Savitzky-Golay window 5, polynomial order 2, then int16 quantization",
+    "f04_temporal_sensitivity": "Native T01; no second Savitzky-Golay pass",
+    "curve_filter_enabled": true,
+    "curve_filter": "Butterworth low-pass, order 4, forward/backward filtfilt",
+    "cutoff_cycles_per_frame": 0.23,
+    "filter_sampling_rate": 1,
+    "padding": "constant",
+    "filter_bypass_maximum_segment_frames": 15,
+    "inactive_unfiltered_branch_gaussian_sigma": 0.75,
+    "effective_period": "min(FFT period, segment frame count / 3)",
+    "peak_distance_period_fraction": 0.55,
+    "prominence_curve_range_fraction": 0.05,
+    "boundary_extrema_excluded": true,
+    "alternating_extrema": "Keep the strongest extremum in consecutive same-type runs",
+    "pairing": "Each ED to minimum following ES before next ED",
+    "ef_evaluation": "Unfiltered metric Teichholz volumes; mean of valid cycle EF per video, then equal-video mean per examination"
+  },
+  "primary_adjusted_analysis": {
+    "videos": 83,
+    "examinations": 45,
+    "patients": 39,
+    "methods": ["f04", "echonet_lvh", "resnet18", "mobile", "report_lvef"],
+    "f04_family_size": 4,
+    "base_increment_family_size": 5
+  },
+  "e10_common_video_analysis": {
+    "videos": 81,
+    "examinations": 44,
+    "patients": 38,
+    "methods": ["f04", "echonet_lvh", "e10", "report_lvef"],
+    "f04_family_size": 5,
+    "base_increment_family_size": 6,
+    "retained_historical_methods": ["ResNet18/SimCC", "MobileNetV3/SimCC"]
+  },
+  "bootstrap": {
+    "association_replicates": 20000,
+    "cv_refit_replicates": 2000,
+    "seed": 20260911,
+    "resampling_unit": "patient",
+    "ci95_quantiles": [0.025, 0.975],
+    "family_quantiles": "[0.025 / K, 1 - 0.025 / K]",
+    "scope": "Separate families per metric, variant and sensitivity, not a global multiplicity claim"
+  },
+  "manuscript_displays": {
+    "Figure 4": "Marginal 95% CI, primary cohort",
+    "Supplementary Table S5": "Marginal 95% partial-r CI and point CV RMSE, E10 cohort",
+    "Supplementary Table S6": "Marginal 95% and K=5 intervals for each metric separately, E10 cohort",
+    "Supplementary Table S7": "Point estimates in E10 sensitivities"
+  }
+}

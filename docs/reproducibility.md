@@ -22,10 +22,63 @@ The historical CMR reanalysis used Python 3.10.20, NumPy 2.2.6, pandas 2.3.3, Sc
 
 The public release is checked separately using synthetic inputs and source-function comparisons. The tested package versions and checks are recorded in `release_validation.json`. Broad dependency ranges in `pyproject.toml` specify intended compatibility; they do not certify every possible combination. Statistical results may differ in last-digit rounding across library versions.
 
+Version 0.1.1 passed 41 synthetic tests, rechecked the seven frozen aggregate files,
+and passed Python compilation checks. The 30-test run, four-figure generation and
+visual inspection in v0.1.0 are retained under `historical_validations` in
+`release_validation.json`; the figures were not regenerated during this update.
+
 Primary clinical processing and the T01 temporal sensitivity path are different settings. CMR intervals on leave-one-out calibrated errors resample frozen out-of-fold predictions and are conditional on those fitted predictions; clinical cross-validation bootstrap intervals rerun the full fitting process. Do not interpret either as external clinical validation.
+
+## Recorded clinical settings and v0.1.1 audit
+
+[Study settings](study_settings.json) specify the frozen clinical Butterworth
+filter at 0.23 cycles/frame and the PLAX peak-distance rule. The generic command
+defaults are not substitutes for those recorded settings. The primary adjusted
+analysis retains four F04 comparisons and five EF-versus-base comparisons; the
+later E10 common-video analysis retains five and six, respectively. Explicit
+family parameters preserve those counts when fewer methods are selected for
+display. A single-F04 input keeps its legacy default family denominators of one,
+while recording zero selected F04-comparator contrasts; it creates no comparator.
+
+The [aggregate audit record](clinical_parameter_audit.json) publishes settings,
+source-code hashes, counts and numerical errors without participant rows, video
+identifiers, source-machine paths or restricted-input hashes. Local replay
+checked 496 successful method/video runs and 1,241 cycles from cached endpoints.
+ED/ES indices and all downstream video-level numbers matched exactly; the largest
+examination-aggregation difference was 7.11e-15 EF percentage points. Both
+previously invalid E10 videos again failed the geometry gate. This checks cached
+endpoint processing, not new pixel-to-endpoint inference or physiological timing
+accuracy.
+
+The updated statistical API was checked against 404 numeric fields of the frozen
+primary adjusted analysis (maximum difference zero) and 66 specified fields from
+the E10 common-video analysis (maximum difference 2.50e-16). The latter covers the
+three Supplementary Table S6 paired contrasts, the four model partial-r summaries
+and the four CV RMSE-improvement-versus-base summaries. It does not claim parity
+for the historical E10 archive's unused, family-adjusted absolute CV-error
+intervals. Figure 4 uses marginal 95% intervals; its 73 aggregate numeric fields
+matched the original adjusted output exactly. Source inputs and frozen results
+were unchanged.
+
+The parity record identifies the API hash actually checked. A subsequent
+compatibility fix only restores the default denominator for a single selected
+F04 method, with a dedicated regression test; it leaves the audited four- and
+five-method settings unchanged. No full numerical replay is claimed for a
+different set of patients or unrecorded settings.
+
+These local checks required authorized source caches and clinical tables, which
+are not distributed. Public users can run the synthetic tests and redraw the
+aggregate figures; reproducing the full local replay requires separately
+authorized inputs. See [measurement provenance](measurement_provenance.json) and
+[clinical provenance](clinical_provenance.json) for the current records and
+explicitly retained v0.1.0 validation history.
 
 ## Data and model access
 
 Dataset access must be obtained through the respective provider. Restricted source records and patient-level derivatives are not redistributed. The corresponding author can answer availability questions for compatible model checkpoints; no checkpoint download or availability commitment is implied by the source release. Inference adapters supplied without the model bundle are source code, not a complete pretrained distribution.
 
-All tests use artificial inputs. Files generated from actual authorized records should remain in local output directories. Public figure outputs are based solely on the aggregate data listed above.
+All distributed unit tests use artificial inputs. The separately reported local
+parity checks used authorized records and publish only aggregate verification
+results. Files generated from actual authorized records should remain in local
+output directories. Public figure outputs are based solely on the aggregate data
+listed above.

@@ -27,6 +27,11 @@
       "file": "scripts/prepare_f04_ntprobnp_adjusted.py",
       "sha256": "5623eb81afc03b68f6ee8aa37421f55c50ce7bfcf8cff075cb9f8311831f9142",
       "reuse": "Reviewed age/renal input semantics for documentation; cohort preparation and matching code are outside the released implementation"
+    },
+    {
+      "file": "scripts/compare_e10_paper_baseline.py",
+      "sha256": "85beef0dc573a71d9fe24d16c06bb37d56fe5853f0d798d660b1b95ba052f036",
+      "reuse": "Reviewed frozen E10 cumulative family counts and displayed intervals; v0.1.1 exposes explicit family sizes without changing resampling or marginal estimates."
     }
   ],
   "frozen_main_analysis": {
@@ -36,16 +41,64 @@
     "patients": 39,
     "bootstrap_replicates": 20000,
     "cv_bootstrap_replicates": 2000,
-    "seed": 20260911
+    "seed": 20260911,
+    "methods": 5,
+    "f04_family_size": 4,
+    "base_increment_family_size": 5
   },
   "release_changes": [
     "Local canonical CSV input and aggregate-only JSON output",
     "No database, application, raw-data, checkpoint or source-machine path dependencies",
-    "Model-column selection with comparison-family sizes derived from selected methods",
+    "Model-column selection with default comparison-family sizes from selected methods, plus explicit cumulative family sizes no smaller than the selected comparison counts",
     "Optional separately analyzed processing variants and explicit sensitivity subsets",
-    "Strict shared-cohort validation and synthetic leakage/paired-uncertainty checks"
+    "Strict shared-cohort validation and synthetic leakage/paired-uncertainty checks",
+    "Resolved and selected family sizes recorded in aggregate output; counts do not change point estimates, marginal intervals or bootstrap draws"
   ],
   "local_verification": {
+    "release_version": "0.1.1",
+    "details": "docs/clinical_parameter_audit.json",
+    "frozen_adjusted_main": {
+      "visits": 45,
+      "patients": 39,
+      "comparison_families": {
+        "f04_contrasts_per_metric": 4,
+        "base_increment_contrasts": 5,
+        "selected_f04_contrasts": 4,
+        "selected_base_increments": 5,
+        "f04_family_explicit": false,
+        "base_increment_family_explicit": false,
+        "scope": "Separate family per metric, variant and sensitivity; no global correction"
+      },
+      "numeric_fields_compared": 404,
+      "maximum_absolute_difference": 0.0
+    },
+    "frozen_e10_common_video": {
+      "visits": 44,
+      "patients": 38,
+      "comparison_families": {
+        "f04_contrasts_per_metric": 5,
+        "base_increment_contrasts": 6,
+        "selected_f04_contrasts": 3,
+        "selected_base_increments": 4,
+        "f04_family_explicit": true,
+        "base_increment_family_explicit": true,
+        "scope": "Separate family per metric, variant and sensitivity; no global correction"
+      },
+      "numeric_fields_compared": 66,
+      "maximum_absolute_difference": 2.498001805406602e-16
+    },
+    "source_inputs_unchanged": true,
+    "patient_rows_written": 0,
+    "synthetic_clinical_tests_passed": 24,
+    "synthetic_test_scope": "Family changes preserve every bootstrap draw, point and marginal interval; only the designated family intervals change. Tests cover exact uniform-tail quantiles, invalid counts, CLI propagation and metadata.",
+    "scope_limitation": "Verified S6 point/marginal/family intervals, four method partial correlations and four base-increment summaries. Did not claim equivalence of original E10 family=6 absolute CV RMSE/MAE interval fields, which current manuscript does not show.",
+    "verified_api_sha256": "76adfd664569984cf312bf510d2496fd9029459ce572bf39b48d8a69d27908a2",
+    "post_parity_compatibility_patch": "The default denominator for a single-F04 input was restored after parity verification; four- and five-method settings are unchanged. A dedicated regression test and all 41 synthetic release tests passed afterward."
+  },
+  "patient_rows_included": false,
+  "prospective_validation_claimed": false,
+  "historical_verification": {
+    "release_version": "0.1.0",
     "frozen_adjusted_main": "Portable implementation compared with the original frozen main result using all five methods and original full replicate counts; input read in memory only",
     "numeric_fields_compared": 404,
     "maximum_absolute_difference": 0.0,
@@ -54,6 +107,14 @@
     "synthetic_tests_passed": 13,
     "synthetic_cli": "Passed for repeated, patient_equal, exact_report_only, exclude_topcoded_age, and single_visit modes; aggregate JSON contains no synthetic patient identifiers"
   },
-  "patient_rows_included": false,
-  "prospective_validation_claimed": false
+  "release_version": "0.1.1",
+  "release_file_sha256": {
+    "src/plax_measurement/clinical.py": "ea49e3e85caec163641a2d4d167a110ba9a7c833dc40b7581106d29fee65f578",
+    "scripts/analyze_clinical.py": "6d68bf8903b34c8ae92c7b44a4ee5694cac2b3ceead83509210894e630d0eb79",
+    "tests/test_clinical.py": "7528f7802c0deec00e87a3fe3fef9a5bbccdf1a4dd4ea42db8ef39036e424dea",
+    "docs/clinical.md": "cd28c476db796c534037ef1303c756da6ff32ee08f68d3c86002bcb8c10ed45c",
+    "docs/study_settings.json": "46a870fbe95ab94594cf848ad86364bea3d83e074772e908a07d2f91ec8ff28c",
+    "docs/clinical_parameter_audit.json": "55dea5b07e97531ce62ddfe9d105d0fd3ab77e0168e8b274c28dbdb297826584",
+    "docs/reproducibility.md": "6224903b2be2a4a52504433d1ac86b3fb7036e989f1a69c847ffcb75f34dee18"
+  }
 }

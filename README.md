@@ -1,12 +1,14 @@
 # PLAX measurement code
 
-Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.0**. This repository does not imply journal acceptance.
+Code accompanying **Evaluating cardiac artificial intelligence beyond human readouts**, prepared as a Nature Article submission draft. Version **0.1.1**. This repository does not imply journal acceptance.
 
 Correspondence: **Dong Ni (倪东), nidong@szu.edu.cn**.
 
-Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.0**; use the versioned release when citing or reproducing this draft.
+Repository: [touch3080/plax-measurement-code](https://github.com/touch3080/plax-measurement-code). The manuscript code version is **v0.1.1**; use the versioned release when citing or reproducing this draft. The v0.1.0 tag remains available.
 
 The study distinguishes agreement with human measurements from association with an independent functional or physiological reference. This release contains portable statistical analyses, measurement processing, model source code and the aggregate data needed to redraw the four main figures.
+
+Version 0.1.1 documents the actual clinical phase filter (Butterworth, 0.23 cycles/frame) and adds explicit cumulative comparison-family settings for the E10 analysis. The original primary analysis uses 4/5 comparisons; the E10 common cohort retains 5/6. Measurement algorithms and frozen figure inputs are unchanged. See [recorded study settings](docs/study_settings.json) and [clinical interval scope](docs/clinical.md).
 
 ## Install and verify
 

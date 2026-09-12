@@ -236,10 +236,33 @@ def validate_frame(frame, model_columns=DEFAULT_MODELS):
     return models
 
 
+def resolve_comparison_families(model_count, f04_family_size=None, base_increment_family_size=None):
+    """Keep historical comparisons in a family even when fewer models are shown."""
+    selected = {"f04_contrasts_per_metric": model_count - 1,
+                "base_increment_contrasts": model_count}
+    requested = {"f04_contrasts_per_metric": f04_family_size,
+                 "base_increment_contrasts": base_increment_family_size}
+    result = {}
+    for name, count in selected.items():
+        value = requested[name]
+        if value is None:
+            value = max(1, count)
+        if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)) or value < max(1, count):
+            raise ValueError(f"{name} must be an integer at least {max(1, count)}")
+        result[name] = int(value)
+    return {**result, "selected_f04_contrasts": model_count - 1,
+            "selected_base_increments": model_count,
+            "f04_family_explicit": f04_family_size is not None,
+            "base_increment_family_explicit": base_increment_family_size is not None,
+            "scope": "Separate family per metric, variant and sensitivity; no global correction"}
+
+
 def analyze(frame, bootstrap_reps=20000, cv_bootstrap_reps=2000, seed=DEFAULT_SEED,
-            patient_equal=False, model_columns=DEFAULT_MODELS):
+            patient_equal=False, model_columns=DEFAULT_MODELS,
+            f04_family_size=None, base_increment_family_size=None):
     """Analyze one supplied variant/cohort, returning aggregate statistics only."""
     models = validate_frame(frame, model_columns)
+    families = resolve_comparison_families(len(models), f04_family_size, base_increment_family_size)
     if "variant" in frame and frame.variant.nunique() != 1:
         raise ValueError("analyze requires one variant; use analyze_cohorts for multiple variants")
     if min(bootstrap_reps, cv_bootstrap_reps) < 1:
@@ -286,8 +309,7 @@ def analyze(frame, bootstrap_reps=20000, cv_bootstrap_reps=2000, seed=DEFAULT_SE
               "weighting": "patient_equal" if patient_equal else "visit_equal",
               "base_r2": summarize(point["base_r2"][0], np.concatenate([d["base_r2"] for d in draws])),
               "base_coefficients": {}, "models": {}, "contrasts": {}, "unadjusted": {},
-              "unadjusted_contrasts": {}, "comparison_families": {
-                  "f04_contrasts_per_metric": max(1, len(models) - 1), "base_increment_contrasts": len(models)}}
+              "unadjusted_contrasts": {}, "comparison_families": families}
     for i, name in enumerate(("intercept", "age_per10years", "log2_creatinine")):
         result["base_coefficients"][name] = summarize(point["base_beta"][0, i], np.concatenate([d["base_beta"][:, i] for d in draws]))
     for name in (*designs, "fold_mean"):
@@ -297,10 +319,10 @@ def analyze(frame, bootstrap_reps=20000, cv_bootstrap_reps=2000, seed=DEFAULT_SE
                 metrics[metric] = summarize(point[name][metric][0], np.concatenate([d[name][metric] for d in draws]))
         for metric in ("rmse", "mae", "q2_vs_fold_mean", "rmse_improvement_vs_base"):
             if metric in cv[name]:
-                family = len(models) if metric == "rmse_improvement_vs_base" else 1
+                family = families["base_increment_contrasts"] if metric == "rmse_improvement_vs_base" else 1
                 metrics["cv_" + metric] = summarize(cv[name][metric][0], np.concatenate([d[name][metric] for d in cv_draws]), family)
         result["models"][name] = metrics
-    family = max(1, len(models) - 1)
+    family = families["f04_contrasts_per_metric"]
     for other in models:
         if other != "f04":
             result["contrasts"][other] = {
@@ -325,7 +347,8 @@ def analyze(frame, bootstrap_reps=20000, cv_bootstrap_reps=2000, seed=DEFAULT_SE
 
 def analyze_cohorts(frame, sensitivities=(), **kwargs):
     """Separate supplied variants; build only explicitly requested sensitivities."""
-    validate_frame(frame, kwargs.get("model_columns", DEFAULT_MODELS))
+    models = validate_frame(frame, kwargs.get("model_columns", DEFAULT_MODELS))
+    resolve_comparison_families(len(models), kwargs.get("f04_family_size"), kwargs.get("base_increment_family_size"))
     supported = {"patient_equal", "exact_report_only", "exclude_topcoded_age", "single_visit"}
     if set(sensitivities) - supported:
         raise ValueError("Unsupported sensitivity")

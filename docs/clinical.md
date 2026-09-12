@@ -67,6 +67,19 @@ For the five-method comparison and the adjusted source sensitivities:
 python scripts/analyze_clinical.py --input /path/to/authorized_pairs.csv --output-dir /path/to/local_results --model-columns echonet_lvh resnet18 mobile f04 report_lvef --sensitivities patient_equal exact_report_only exclude_topcoded_age
 ```
 
+For the later E10 common-video cohort, supply its separately prepared input and
+retain the cumulative comparison families even though only four methods remain:
+
+```console
+python scripts/analyze_clinical.py --input /path/to/authorized_e10_common_pairs.csv --output-dir /path/to/local_e10_results --model-columns f04 echonet_lvh e10 report_lvef --f04-family-size 5 --base-increment-family-size 6 --bootstrap-reps 20000 --cv-bootstrap-reps 2000 --seed 20260911
+```
+
+The E10 analysis used 81 common surviving videos, 44 examinations and 38 patients.
+All methods were averaged over those same surviving videos. Simply deleting
+examination rows from the primary input does not reconstruct these averages.
+The optional complete-video sensitivity used 43 examinations and 37 patients;
+its input must be prepared separately because this CLI has no video-success data.
+
 Each supplied variant receives a main `repeated` result. The optional
 `single_visit` sensitivity retains the lowest numeric `study_order` for each
 patient. The software never treats an identifier or CSV position as a date.
@@ -116,14 +129,36 @@ difference in absolute correlation. A more negative correlation and a stronger
 absolute correlation are distinct comparisons.
 
 Intervals use bootstrap percentiles. `ci95` is marginal 95%; `ci_family` uses
-Bonferroni quantiles within the stated family. There are `M-1` F04 comparisons
-per metric and `M` base-increment comparisons for `M` selected LVEF methods.
-Thus the complete source five-method adjusted configuration uses four and five
-comparisons, respectively. Selecting only the three defaults changes family
-intervals and cannot reproduce the five-method family intervals. No correction
-is made across variants or sensitivities. The larger all-pairs and
-thirty-comparison families from the original unadjusted script are outside this
-portable release's scope.
+Bonferroni quantiles `[0.025 / K, 1 - 0.025 / K]` for the specified comparison
+count K. Defaults remain `M-1` F04 comparisons per metric and `M` base-increment
+comparisons for M selected EF methods. Explicit `--f04-family-size` and
+`--base-increment-family-size` preserve previously examined comparisons when
+fewer methods are displayed. They must be integers no smaller than the number
+of corresponding selected contrasts. Both selected and resolved family counts
+are recorded in output settings; they do not change point estimates or `ci95`.
+
+| Study analysis | EF methods in its input | F04 family per metric | EF-versus-base family |
+|---|---|---:|---:|
+| Original 45-examination/39-patient adjusted cohort, including T01 and its adjusted sensitivities | F04, EchoNet-LVH, ResNet18/SimCC, MobileNetV3/SimCC, report LVEF | 4 | 5 |
+| Later E10 common-video cohort and its sensitivities | F04, EchoNet-LVH, E10, report LVEF | 5 | 6 |
+
+The E10 cumulative families retain the two historical SimCC methods. Running
+its four selected methods with generic defaults would use 3/4 and would not
+reproduce the manuscript's Supplementary Table S6 family intervals. Selecting
+only the three generic defaults without explicit counts likewise does not
+reproduce the primary historical five-method family intervals.
+
+Manuscript Figure 4 and Supplementary Table S5 show **marginal 95% intervals**;
+Supplementary Table S6 shows both marginal and five-comparison family intervals
+for each of its three metrics separately. These are not one 15-comparison family.
+Table S7 shows point estimates. No correction is made across metrics, variants
+or sensitivities. The original unadjusted archive additionally contains all-pairs
+and thirty-comparison families; those are outside this portable release's scope.
+The original E10 archive also attached six-comparison intervals to absolute CV
+RMSE/MAE fields. Those auxiliary intervals are not displayed in the manuscript;
+this release applies the base family to **RMSE improvement versus base**, while
+absolute CV metrics retain marginal intervals. It does not claim to reproduce
+every auxiliary interval in that archive.
 
 The crossproduct design must have a minimum/maximum eigenvalue ratio greater
 than 1e-12; singular or ill-conditioned fits receive undefined estimates with
@@ -150,10 +185,17 @@ exercise incomplete cohorts and singular fits. Source files and their SHA256
 hashes are recorded in `clinical_provenance.json`; attribution is covered by the
 repository MIT license.
 
-Before release, the portable five-method main analysis was checked locally
+Before v0.1.0, the portable five-method main analysis was checked locally
 against the original frozen adjusted result using 20,000 association and 2,000
 CV bootstrap replicates. All 404 numeric fields from that original result
 matched exactly in the verification environment. The source input remained
 unchanged and no patient rows were written. The restricted source CSV is not
 distributed, so this comparison is a recorded local verification, while the
 synthetic checks can be run from the public release.
+
+The v0.1.1 provenance audit separately traced the primary 4/5 families and the
+E10 5/6 families to their actual frozen scripts and inputs. The earlier
+404-field verification concerns the original five-method adjusted result, not
+the later E10 analysis. See `study_settings.json` for the recorded processing
+and analysis settings and `release_validation.json` for the checks completed
+for this release.

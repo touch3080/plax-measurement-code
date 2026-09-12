@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 from threadpoolctl import threadpool_limits
 
-from plax_measurement.clinical import DEFAULT_MODELS, DEFAULT_SEED, analyze_cohorts
+from plax_measurement.clinical import DEFAULT_MODELS, DEFAULT_SEED, analyze_cohorts, resolve_comparison_families
 
 
 def main():
@@ -17,6 +17,8 @@ def main():
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--bootstrap-reps", type=int, default=20000)
     parser.add_argument("--cv-bootstrap-reps", type=int, default=2000)
+    parser.add_argument("--f04-family-size", type=int, help="Cumulative F04 comparisons per metric; defaults to selected methods minus one")
+    parser.add_argument("--base-increment-family-size", type=int, help="Cumulative EF-versus-base comparisons; defaults to selected method count")
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
     parser.add_argument("--model-columns", nargs="+", default=list(DEFAULT_MODELS))
     parser.add_argument("--sensitivities", nargs="*", default=[], choices=[
@@ -34,7 +36,9 @@ def main():
         with threadpool_limits(limits=2):
             analyses = analyze_cohorts(frame, sensitivities=args.sensitivities,
                 bootstrap_reps=args.bootstrap_reps, cv_bootstrap_reps=args.cv_bootstrap_reps,
-                seed=args.seed, model_columns=args.model_columns)
+                seed=args.seed, model_columns=args.model_columns,
+                f04_family_size=args.f04_family_size,
+                base_increment_family_size=args.base_increment_family_size)
     except (ValueError, KeyError, OSError) as error:
         parser.exit(2, f"Clinical analysis failed: {error}\n")
     import plax_measurement.clinical as clinical
@@ -44,6 +48,7 @@ def main():
             "cv_bootstrap_replicates": args.cv_bootstrap_reps,
             "seed": args.seed,
             "model_columns": args.model_columns,
+            "comparison_families": resolve_comparison_families(len(args.model_columns), args.f04_family_size, args.base_increment_family_size),
             "sensitivities": args.sensitivities,
             "outcome": "log10(NT-proBNP in pg/mL)",
             "adjustment": "intercept + age_proxy/10 + log2_creatinine; add each LVEF/10 separately",

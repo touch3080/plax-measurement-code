@@ -323,10 +323,10 @@
     }
   ],
   "release_file_sha256": {
-    "src/plax_measurement/measurement.py": "93acef868204da42b6c350af4b6d9ca4dc74618bf80aef110900907341fa3664",
+    "src/plax_measurement/measurement.py": "9233cc9c65e09e7d69cfa91733b5ebde2d190688103a8bdac7e87ff224af90d7",
     "scripts/analyze_geometry.py": "be792773c4d84d9fa30cdbe9d789bc41be17c87dbdff03e68f674a68e323346a",
     "tests/test_measurement.py": "d73c4bb9a42e9ba1543a4f4f78ed56f11188d5ccbda4416f8586ec030c189bd0",
-    "docs/models.md": "5ee835b29c9abc11b372913eebfb7be77d2463e680eee1cd698c714ad43ab5a8",
+    "docs/models.md": "6c26a94efc41619345bb51e1475cdff64d97c549a725f98e195ef81a4bf47034",
     "vendor/f04_pipeline.py": "51491967c704b09ff04b1198ad409bcd392c6e98e67a6cd753999df44669777d",
     "vendor/f04_vendor/__init__.py": "32edd39abe6ad1dd10a879d767af41d90fb288ff040f8a7d691018617ae4b001",
     "vendor/f04_vendor/fuse_lvid_predictions_learned.py": "4d2c73df6d5a69af1edebb6970b9b9be3a2e8ceaf440710ab165f6b12fb7d679",
@@ -346,14 +346,60 @@
     "vendor/bundle_template/project/configs/lvid_yolo11s_pose.yaml": "de0e238ec63e3c51d5d046a307dc8335df69fc0ff13f501b4d3422f687ebabc8",
     "vendor/bundle_template/project/configs/lvid_yolov8s_pose.yaml": "cb04db9311e328778ba26eb5f9c24c8929b3f7fe58da2afd79a456143f2a743f",
     "vendor/bundle_template/FINAL_SCHEME.json": "1fa8799bc33879bb0561064616e0cb93012057b2d0e29d1ac90a457e89bf9a1b",
-    "vendor/LICENSE.landmark3.0": "650fec2894000704041d1a9c5b44eb24546779483a8af7d52bc27528cb8b11eb"
+    "vendor/LICENSE.landmark3.0": "650fec2894000704041d1a9c5b44eb24546779483a8af7d52bc27528cb8b11eb",
+    "docs/study_settings.json": "46a870fbe95ab94594cf848ad86364bea3d83e074772e908a07d2f91ec8ff28c",
+    "docs/clinical_parameter_audit.json": "55dea5b07e97531ce62ddfe9d105d0fd3ab77e0168e8b274c28dbdb297826584",
+    "docs/reproducibility.md": "6224903b2be2a4a52504433d1ac86b3fb7036e989f1a69c847ffcb75f34dee18"
   },
   "validation": {
+    "release_version": "0.1.1",
+    "synthetic_measurement_tests": "Included in the 41 passing release-wide tests; see release_validation.json.",
+    "recorded_clinical_phase_replay": "docs/clinical_parameter_audit.json",
+    "successful_method_video_replays": 496,
+    "cycles_replayed": 1241,
+    "maximum_video_level_numeric_difference": 0.0,
+    "maximum_examination_aggregation_error_percentage_points": 7.105427357601002e-15,
+    "algorithms_changed": false,
+    "release_change": "Adds reporting of filter settings to trajectory output; the original phase/EF arithmetic is unchanged.",
+    "optional_f04_video_inference_tested": false,
+    "scope": "Clinical cached-endpoint replay checks deterministic phase/EF processing, not pixel-to-endpoint inference or physiological timing accuracy."
+  },
+  "historical_validation": {
+    "release_version": "0.1.0",
     "synthetic_test_count": 7,
     "test_command": "python -m unittest discover -s tests -p test_measurement.py -v",
     "passed": true,
     "tested_numpy": "2.4.6",
     "tested_scipy": "1.17.1",
     "optional_f04_video_inference_tested": false
-  }
+  },
+  "historical_release_file_sha256": {
+    "0.1.0": {
+      "src/plax_measurement/measurement.py": "93acef868204da42b6c350af4b6d9ca4dc74618bf80aef110900907341fa3664",
+      "scripts/analyze_geometry.py": "be792773c4d84d9fa30cdbe9d789bc41be17c87dbdff03e68f674a68e323346a",
+      "tests/test_measurement.py": "d73c4bb9a42e9ba1543a4f4f78ed56f11188d5ccbda4416f8586ec030c189bd0",
+      "docs/models.md": "5ee835b29c9abc11b372913eebfb7be77d2463e680eee1cd698c714ad43ab5a8",
+      "vendor/f04_pipeline.py": "51491967c704b09ff04b1198ad409bcd392c6e98e67a6cd753999df44669777d",
+      "vendor/f04_vendor/__init__.py": "32edd39abe6ad1dd10a879d767af41d90fb288ff040f8a7d691018617ae4b001",
+      "vendor/f04_vendor/fuse_lvid_predictions_learned.py": "4d2c73df6d5a69af1edebb6970b9b9be3a2e8ceaf440710ab165f6b12fb7d679",
+      "vendor/f04_vendor/infer_lvid_f02_video.py": "7879414200969803930d362b26c09202cf1b696a2212e8565a604443a4cf8fc4",
+      "vendor/f04_vendor/lvid/__init__.py": "f42633db8591536364745a635bfecb7932ed26c55e92bf34bc2876a1967178aa",
+      "vendor/f04_vendor/lvid/data.py": "655c4602627be1d6e18f2157639d9961113881b6ba1486a34d5d953439a33500",
+      "vendor/f04_vendor/lvid/heatmaps.py": "bc4d6a736b058e856b1c37d621228d13ef1e6fbb3bd144f1094ecaed08a54bb2",
+      "vendor/f04_vendor/lvid/metrics.py": "a24aab0c83d1eceb5e29463b6d622421fec306d5ca62f43bfd83bff3c806a655",
+      "vendor/f04_vendor/lvid/models.py": "45434e66e9ef13885773150748d6d31b9ae13e97bfa3bcb1292524e62c58b4ac",
+      "vendor/f04_vendor/lvid/utils.py": "49a8b40c682f8119760f0310de629618db5a991e860ff1c42c063f14808c219c",
+      "vendor/f04_vendor/temporal_smooth_lvid_video.py": "37cd9f90cabac527c0895bc4e496cf0f0e445f7944d7e203338e033321883ab5",
+      "vendor/run_f04.py": "68560a78cd288ebe2b3ab15063bf7a863bf4b1b6c7bfd3fb5f4ac78c34b93969",
+      "vendor/bundle_template/project/configs/lvid_roi_deeplabv3plus_heatmap.yaml": "33b07740292bbf8e127bfa1494453c36e37b34d28466ff21e4b2644271320386",
+      "vendor/bundle_template/project/configs/lvid_swin_s_fpn_heatmap.yaml": "75442317c9c6497fd18c8a5596101fc5ab3c51d816c935d2c3e2efa56a057d69",
+      "vendor/bundle_template/project/configs/lvid_swin_t_fpn_heatmap.yaml": "bd138c05991a2d77e15d07f814ed6a3ce30bb96adbfd9caa0266bb9c2b05031d",
+      "vendor/bundle_template/project/configs/lvid_unified_line010_deeplabv3plus_heatmap.yaml": "04a45f5a1dbc6fbc9bfef2b2e77b26218f1b575dd1a3714ab022425cc2a0d5a5",
+      "vendor/bundle_template/project/configs/lvid_yolo11s_pose.yaml": "de0e238ec63e3c51d5d046a307dc8335df69fc0ff13f501b4d3422f687ebabc8",
+      "vendor/bundle_template/project/configs/lvid_yolov8s_pose.yaml": "cb04db9311e328778ba26eb5f9c24c8929b3f7fe58da2afd79a456143f2a743f",
+      "vendor/bundle_template/FINAL_SCHEME.json": "1fa8799bc33879bb0561064616e0cb93012057b2d0e29d1ac90a457e89bf9a1b",
+      "vendor/LICENSE.landmark3.0": "650fec2894000704041d1a9c5b44eb24546779483a8af7d52bc27528cb8b11eb"
+    }
+  },
+  "release_version": "0.1.1"
 }

@@ -910,4 +910,7 @@ def analyze_trajectory(rows, *, spacing_cm, fps=0.0, smoothing="none", filt=Fals
     return {"status": status, "lvef_percent": float(ef.mean()) if status == "ok" else None,
             "cycle_count": len(ef), "frame_index_base": 0, "spacing_cm_per_pixel": float(spacing_cm),
             "smoothing": smoothing, "smoothing_metrics": smoothing_metrics,
+            "phase_filter": {"enabled": bool(filt),
+                             "cutoff_cycles_per_frame": float(cutoff_frequency) if filt else None,
+                             "policy": "Butterworth order 4, constant padding, bypass segments <=15 frames" if filt else "Gaussian sigma 0.75 for segments >=5 frames"},
             "payload": payload}

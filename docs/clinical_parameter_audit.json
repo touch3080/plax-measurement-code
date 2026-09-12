@@ -1,0 +1,200 @@
+{
+  "release_version": "0.1.1",
+  "audit_date": "2026-09-12",
+  "scope": "Aggregate verification of the recorded clinical phase settings and comparison families; cached-endpoint replay and local statistical checks, not new image inference or independent clinical validation.",
+  "privacy": {
+    "patient_rows_included": false,
+    "patient_or_video_identifiers_included": false,
+    "source_machine_paths_included": false,
+    "restricted_input_hashes_included": false
+  },
+  "settings_file": "docs/study_settings.json",
+  "phase_replay": {
+    "status": "passed",
+    "frozen_configuration": {
+      "filt": true,
+      "cutoff_cycles_per_frame": 0.23,
+      "sampling_rate": 1,
+      "normalized_nyquist_cutoff": 0.46,
+      "order": 4,
+      "filtfilt_padtype": "constant",
+      "skip_filter_length_le": 15,
+      "effective_period": "min(FFT_period, max(segment_frame_count / 3, 1))",
+      "peak_distance": "round(min(max(0.55 * effective_period, 1), n-1))",
+      "prominence": "max(0.05 * (max(curve)-min(curve)), 1e-9)",
+      "gaussian_used_in_frozen_clinical_analysis": false,
+      "gaussian_sigma_when_filter_disabled": 0.75
+    },
+    "source_code_hash_checks_passed": 11,
+    "public_source_ast_matches": {
+      "apply_savgol_filter": true,
+      "Teichholz_volume": true,
+      "estimate_period_fft": true,
+      "_coerce_finite_curve": true,
+      "_prepare_curve_for_extrema_detection": true,
+      "_find_curve_extrema_indices": true,
+      "_collapse_to_alternating_extrema": true,
+      "_select_plax_volume_markers": true,
+      "sort_landmarks": true,
+      "livds2volume": true,
+      "pair_volume_extrema": true,
+      "butter_lowpass_filter": true,
+      "PLAXLandMark": true,
+      "_contiguous_segments": true,
+      "_is_valid_plax_landmark": true,
+      "build_segmented_plax_curve_payload": true
+    },
+    "cache_files_read": 415,
+    "cache_inputs_matching_recorded_hashes": 332,
+    "supplemental_output_caches_without_prior_input_hash": 83,
+    "supplemental_cache_handling": "E10 numerical coordinates checked against full-precision constituent coordinates; stringified display points were not numerical input.",
+    "replays_by_method": [
+      {
+        "method_variant": "f04_matched_savgol5",
+        "successful_video_replays": 83,
+        "identical_ED_ES_replays": 83,
+        "cycles": 214,
+        "identical_status_and_cycle_count": 83
+      },
+      {
+        "method_variant": "f04_native_T01",
+        "successful_video_replays": 83,
+        "identical_ED_ES_replays": 83,
+        "cycles": 182,
+        "identical_status_and_cycle_count": 83
+      },
+      {
+        "method_variant": "echonet_lvh",
+        "successful_video_replays": 83,
+        "identical_ED_ES_replays": 83,
+        "cycles": 205,
+        "identical_status_and_cycle_count": 83
+      },
+      {
+        "method_variant": "resnet18_simcc",
+        "successful_video_replays": 83,
+        "identical_ED_ES_replays": 83,
+        "cycles": 211,
+        "identical_status_and_cycle_count": 83
+      },
+      {
+        "method_variant": "mobilenetv3_simcc",
+        "successful_video_replays": 83,
+        "identical_ED_ES_replays": 83,
+        "cycles": 215,
+        "identical_status_and_cycle_count": 83
+      },
+      {
+        "method_variant": "e10_matched_savgol5",
+        "successful_video_replays": 81,
+        "identical_ED_ES_replays": 81,
+        "cycles": 214,
+        "identical_status_and_cycle_count": 81
+      }
+    ],
+    "successful_video_replays": 496,
+    "cycles_replayed": 1241,
+    "frames_across_method_replays": 36315,
+    "segment_filter_counts": {
+      "eligible_segments": 500,
+      "butterworth_applied": 500,
+      "ineligible_segments": 8
+    },
+    "maximum_absolute_errors": {
+      "lvids": 0.0,
+      "lv_volumes": 0.0,
+      "ef": 0.0,
+      "lvef_percentage_points": 0.0
+    },
+    "maximum_examination_aggregation_error_percentage_points": 7.105427357601002e-15,
+    "invalid_E10_videos_reconfirmed": 2,
+    "no_new_inference_or_frozen_result_changes": true,
+    "limitations": [
+      "Checks cached endpoints and all subsequent deterministic calculations, not pixel-to-endpoint inference.",
+      "Results apply to frozen clinical automatic phase selection; CAMEO geometry uses independently physician-fixed frames."
+    ]
+  },
+  "multiplicity_replay": {
+    "seed": 20260911,
+    "association_bootstrap_replicates": 20000,
+    "fully_refitted_patient_cv_bootstrap_replicates": 2000,
+    "primary_adjusted": {
+      "visits": 45,
+      "patients": 39,
+      "comparison_families": {
+        "f04_contrasts_per_metric": 4,
+        "base_increment_contrasts": 5,
+        "selected_f04_contrasts": 4,
+        "selected_base_increments": 5,
+        "f04_family_explicit": false,
+        "base_increment_family_explicit": false,
+        "scope": "Separate family per metric, variant and sensitivity; no global correction"
+      },
+      "numeric_fields_compared": 404,
+      "maximum_absolute_difference": 0.0
+    },
+    "figure4_aggregate": {
+      "numeric_fields_compared": 73,
+      "maximum_absolute_difference": 0.0,
+      "intervals_displayed": "marginal ci95, not ci_family"
+    },
+    "e10_common_video": {
+      "visits": 44,
+      "patients": 38,
+      "comparison_families": {
+        "f04_contrasts_per_metric": 5,
+        "base_increment_contrasts": 6,
+        "selected_f04_contrasts": 3,
+        "selected_base_increments": 4,
+        "f04_family_explicit": true,
+        "base_increment_family_explicit": true,
+        "scope": "Separate family per metric, variant and sensitivity; no global correction"
+      },
+      "numeric_fields_compared": 66,
+      "maximum_absolute_difference": 2.498001805406602e-16
+    },
+    "e10_verified_fields": "Three S6 paired-contrast summaries, four model partial-r summaries, and four CV RMSE-improvement-versus-base summaries; point estimates, marginal and specified family intervals, and valid-draw counts.",
+    "displayed_rows_checked": {
+      "S5": 4,
+      "S6": 3,
+      "S7": 10,
+      "all_match_frozen_results": true
+    },
+    "source_input_and_script_hash_checks_passed": 5,
+    "inputs_unchanged": true,
+    "patient_rows_exported": 0,
+    "scope_limitation": "Verified S6 point/marginal/family intervals, four method partial correlations and four base-increment summaries. Did not claim equivalence of original E10 family=6 absolute CV RMSE/MAE interval fields, which current manuscript does not show.",
+    "other_scope_limit": "Original unadjusted all-pairs and thirty-comparison families are outside this portable release; no correction across metrics, variants or sensitivities is claimed.",
+    "verified_api_sha256": "76adfd664569984cf312bf510d2496fd9029459ce572bf39b48d8a69d27908a2",
+    "post_parity_compatibility_patch": {
+      "change": "Restore max(1, selected F04 comparison count) when no explicit family is supplied, preserving the v0.1.0 single-F04 behavior.",
+      "affected_default": "One selected method only; selected F04 contrasts remain zero and both default denominators are one.",
+      "audited_four_and_five_method_settings_unchanged": true,
+      "full_numeric_parity_not_rerun_after_this_patch": true,
+      "regression_test": "test_single_f04_keeps_legacy_default_without_creating_comparators",
+      "full_synthetic_suite_after_patch": {
+        "passed": 41,
+        "failed": 0
+      }
+    }
+  },
+  "source_code_sha256": {
+    "landmark_proc_new.py": "a741e71c70a1aa57314bc4fd50f2f0044016a94b2d3374e16b6768142f4ba972",
+    "plax_curve_service.py": "5706f665bb47824d48e0236e13383768f57aec17a77c0afca50da0e2bd468d18",
+    "benchmark_f04_ntprobnp.py": "d07353855185cf811970122a77af473ba784d8821b6a0d0dd4bcbca68f34779e",
+    "benchmark_plax_backbones.py": "39d318dfe152cc72440be14402bfff39299a08b9304f396df1fe2b104922539a",
+    "prepare_e10_paper_baseline.py": "2a220eee45d410c96a9bce7a382b5a6cd6c244200db62f022e96ea8dd046d1f1",
+    "compare_e10_paper_baseline.py": "85beef0dc573a71d9fe24d16c06bb37d56fe5853f0d798d660b1b95ba052f036",
+    "compare_f04_ntprobnp_adjusted.py": "5a9d2ee03da2600dbfe67a0fab3a5e247834d224e4e41dbadb053d5ed5c241cc",
+    "compare_f04_ntprobnp_quantitative.py": "00be7ce54bb33b8c7614e2f5fe8a8ba0080cfa2384a8b953ef9d83971bd2efce"
+  },
+  "public_implementation_sha256": {
+    "src/plax_measurement/clinical.py": "ea49e3e85caec163641a2d4d167a110ba9a7c833dc40b7581106d29fee65f578",
+    "src/plax_measurement/measurement.py": "9233cc9c65e09e7d69cfa91733b5ebde2d190688103a8bdac7e87ff224af90d7"
+  },
+  "verification_environment": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1"
+  },
+  "reproduction_boundary": "The repository contains synthetic tests and aggregate figure inputs. The full local replay requires separately authorized cached trajectories and clinical inputs, which are not distributed."
+}

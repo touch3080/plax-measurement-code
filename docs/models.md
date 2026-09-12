@@ -48,8 +48,8 @@ frame_id,x1,y1,x2,y2,confidence
 ```
 
 ```bash
-python scripts/analyze_geometry.py trajectory --input f04_lines.csv --output trajectory.json --spacing-cm 0.05 --fps 30 --smoothing matched_savgol5
-python scripts/analyze_geometry.py trajectory --input f04_lines.csv --output trajectory_t01.json --spacing-cm 0.05 --fps 30 --smoothing T01
+python scripts/analyze_geometry.py trajectory --input f04_lines.csv --output trajectory.json --spacing-cm 0.05 --fps 30 --smoothing matched_savgol5 --filter --cutoff-frequency 0.23
+python scripts/analyze_geometry.py trajectory --input f04_lines.csv --output trajectory_t01.json --spacing-cm 0.05 --fps 30 --smoothing T01 --filter --cutoff-frequency 0.23
 ```
 
 The CLI requires a complete, ordered trajectory with consecutive zero-based
@@ -75,12 +75,20 @@ Each branch consumes the raw `x1,y1,x2,y2` columns. When reading F04 exports,
 `*_temporal` columns again. Pass a separate CSV with prepared points as the raw
 columns when intentionally selecting `none`.
 
+The frozen clinical runs enabled the fourth-order Butterworth curve filter at
+**0.23 cycles/frame**, applied forward and backward with constant boundary
+padding; segments of at most 15 frames bypass this filter. Both commands above
+select that recorded setting. Replace the illustrative calibration and frame
+rate with the actual video's values. The CLI's generic default leaves this
+filter off and then uses Gaussian sigma 0.75; that Gaussian branch was not used
+for the frozen clinical results. The helper defaults sigma 1.0 and peak-distance
+fraction 0.45 were not the effective PLAX study settings.
+
 After coordinate preprocessing, original Teichholz volumes drive automatic
-phase detection. The default detection curve uses Gaussian sigma 0.75; optional
-`--filter` selects the original fourth-order Butterworth rule, with cutoff in
-cycles/frame and no filtering for segments at most 15 frames. Peaks require 5%
-prominence and distance 0.55 times the estimated FFT period, capped at one third
-of segment length. Boundary extrema are excluded, same-type runs collapse to the
+phase detection. Peaks require prominence of 5% of the detection-curve range.
+The effective period is `min(FFT period, segment_length / 3)`; peak distance is
+0.55 times that effective period, rounded and bounded to valid frame distances.
+Boundary extrema are excluded, same-type runs collapse to the
 strongest extremum, and each ED pairs to the minimum following ES before the
 next ED. EF is evaluated on the **unfiltered metric volumes**, not the smoothed
 display/detection curve. Eligible automatic-phase segments require at least

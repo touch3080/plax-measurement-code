@@ -1,11 +1,17 @@
 """Synthetic checks of the estimand, paired uncertainty, and patient isolation."""
 
 import json
+import importlib.util
+from pathlib import Path
+import sys
 
 import numpy as np
 import pandas as pd
 import pytest
 from scipy.stats import spearmanr
+from threadpoolctl import threadpool_limits
+
+import plax_measurement.clinical as clinical
 
 from plax_measurement.clinical import (
     adjusted_batch, analyze, analyze_cohorts, cluster_weights, group_cv, interval,
@@ -145,3 +151,134 @@ def test_single_visit_requires_explicit_chronology():
     frame["study_order"] = np.arange(len(frame))
     result = analyze_cohorts(frame, sensitivities=["single_visit"], bootstrap_reps=2, cv_bootstrap_reps=2)
     assert result["supplied"]["single_visit"]["visits"] == frame.patient_id.nunique()
+
+
+def test_historical_families_change_only_their_own_interval_limits(monkeypatch):
+    """Family choice must not rerun a different bootstrap or alter an estimand."""
+    frame = synthetic_frame()
+    frame["e10"] = np.clip(frame.f04 + np.random.default_rng(47).normal(0, 4, len(frame)), 0, 100)
+    models = ["f04", "echonet_lvh", "report_lvef", "e10"]
+    captured = []
+    original = clinical.summarize
+
+    def recording_summary(point, draws, family_size=1):
+        captured.append(np.asarray(draws).copy())
+        return original(point, draws, family_size)
+
+    monkeypatch.setattr(clinical, "summarize", recording_summary)
+    with threadpool_limits(limits=2):
+        baseline = analyze(frame, model_columns=models, bootstrap_reps=150,
+                           cv_bootstrap_reps=120, seed=918)
+        baseline_draws = captured[:]
+        for overrides, allowed in [
+            ({"f04_family_size": 5}, "f04"),
+            ({"base_increment_family_size": 6}, "base"),
+        ]:
+            captured.clear()
+            expanded = analyze(frame, model_columns=models, bootstrap_reps=150,
+                               cv_bootstrap_reps=120, seed=918, **overrides)
+            assert len(captured) == len(baseline_draws)
+            for old, new in zip(baseline_draws, captured):
+                np.testing.assert_array_equal(old, new)
+
+            changed = []
+
+            def compare(old, new, path=()):
+                assert old.keys() == new.keys()
+                for key in old:
+                    here = (*path, key)
+                    if key == "comparison_families":
+                        continue
+                    if isinstance(old[key], dict):
+                        compare(old[key], new[key], here)
+                    elif key == "ci_family":
+                        is_f04 = path[0] in {"contrasts", "unadjusted_contrasts"}
+                        is_base = path[0] == "models" and path[-1] == "cv_rmse_improvement_vs_base"
+                        affected = (allowed == "f04" and is_f04) or (allowed == "base" and is_base)
+                        if affected:
+                            assert new[key][0] <= old[key][0]
+                            assert new[key][1] >= old[key][1]
+                            if new[key] != old[key]:
+                                changed.append(here)
+                        else:
+                            assert new[key] == old[key], here
+                    else:
+                        assert new[key] == old[key], here
+
+            compare(baseline, expanded)
+            assert changed, f"The {allowed} family did not affect any nondegenerate interval"
+            assert expanded["base_coefficients"] == baseline["base_coefficients"]
+            assert expanded["models"]["f04"]["partial_r"] == baseline["models"]["f04"]["partial_r"]
+            families = expanded["comparison_families"]
+            assert families["f04_contrasts_per_metric"] == (5 if allowed == "f04" else 3)
+            assert families["base_increment_contrasts"] == (6 if allowed == "base" else 4)
+
+
+@pytest.mark.parametrize("family, expected", [(5, [-3.94, 7.94]), (6, [-3.95, 7.95])])
+def test_five_and_six_comparison_limits_match_uniform_quantiles(family, expected):
+    # Equally spaced uniform draws have known exact linear percentile locations.
+    # The 95% marginal interval is unchanged; corrected tails are 0.5% or 1/240.
+    result = interval(np.linspace(-4, 8, 2401), family_size=family)
+    np.testing.assert_allclose(result["ci95"], [-3.7, 7.7], atol=1e-12)
+    np.testing.assert_allclose(result["ci_family"], expected, atol=1e-12)
+
+
+@pytest.mark.parametrize("overrides", [
+    {"f04_family_size": 1}, {"base_increment_family_size": 2},
+    {"f04_family_size": 5.0}, {"base_increment_family_size": 6.5},
+    {"f04_family_size": True}, {"base_increment_family_size": np.bool_(False)},
+])
+def test_invalid_family_sizes_are_rejected_before_analysis(overrides):
+    with pytest.raises(ValueError, match="must be an integer at least"):
+        analyze(synthetic_frame(), bootstrap_reps=1, cv_bootstrap_reps=1, **overrides)
+
+
+def test_single_f04_keeps_legacy_default_without_creating_comparators():
+    result = analyze(synthetic_frame(), model_columns=["f04"],
+                     bootstrap_reps=20, cv_bootstrap_reps=20, seed=918)
+    families = result["comparison_families"]
+    assert families["f04_contrasts_per_metric"] == 1
+    assert families["base_increment_contrasts"] == 1
+    assert families["selected_f04_contrasts"] == 0
+    assert families["selected_base_increments"] == 1
+    assert result["contrasts"] == {}
+    assert result["models"]["f04"]["partial_r"]["status"] == "ok"
+
+
+def test_cli_forwards_historical_families_and_records_resolved_scope(tmp_path, monkeypatch):
+    """Exercise argparse and JSON metadata without repeating expensive bootstraps."""
+    script = Path(__file__).resolve().parents[1] / "scripts/analyze_clinical.py"
+    spec = importlib.util.spec_from_file_location("clinical_cli_under_test", script)
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
+    frame = synthetic_frame()
+    frame["e10"] = frame.f04
+    source = tmp_path / "synthetic.csv"
+    frame.to_csv(source, index=False)
+    destination = tmp_path / "results"
+    captured = {}
+
+    def fake_analysis(supplied, **kwargs):
+        captured.update(kwargs)
+        assert len(supplied) == len(frame)
+        return {"synthetic": {"repeated": {"status": "stubbed_for_cli_test"}}}
+
+    monkeypatch.setattr(cli, "analyze_cohorts", fake_analysis)
+    monkeypatch.setattr(sys, "argv", [str(script), "--input", str(source),
+        "--output-dir", str(destination), "--model-columns", "f04", "echonet_lvh",
+        "report_lvef", "e10", "--f04-family-size", "5", "--base-increment-family-size", "6",
+        "--bootstrap-reps", "1000", "--cv-bootstrap-reps", "1000", "--seed", "918"])
+    cli.main()
+    assert captured["f04_family_size"] == 5
+    assert captured["base_increment_family_size"] == 6
+    assert captured["model_columns"] == ["f04", "echonet_lvh", "report_lvef", "e10"]
+    result = json.loads((destination / "results.json").read_text(encoding="utf-8"))
+    families = result["design"]["comparison_families"]
+    assert families["f04_contrasts_per_metric"] == 5
+    assert families["base_increment_contrasts"] == 6
+    assert families["selected_f04_contrasts"] == 3
+    assert families["selected_base_increments"] == 4
+    assert families["f04_family_explicit"] is True
+    assert families["base_increment_family_explicit"] is True
+    assert "per metric, variant and sensitivity" in families["scope"]
+    assert result["analyses"]["synthetic"]["repeated"]["status"] == "stubbed_for_cli_test"
